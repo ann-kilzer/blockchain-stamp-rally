@@ -48,13 +48,11 @@ contract StampRally {
     require(cards.length < max, "Reached maximum number of players");
     PlayerRallyCard memory prc = playerToRallyCard[_player];
     require(!prc.valid, "Player already has a card");
+    // make a new card
     uint64 id = uint64(cards.length);
-    bool[] memory s;
+    bool[] memory s = new bool[](numStamps);
     cards.push(RallyCard(s));
     playerToRallyCard[_player] = PlayerRallyCard(id, true);
-    //RallyCard storage rally = playerToRallyCard[_player];
-    //rally.valid = true;
-    //rally.stamps = new bool[](numStamps);
   }
   
   function collectStamp(uint8 _position, string memory _passphrase) public {
