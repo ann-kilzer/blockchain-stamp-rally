@@ -6,6 +6,7 @@ contract StampRally {
   uint8 public numStamps;
   struct Stamp {
     bytes32 hashedPassphrase;
+    bool set;
   }
 
   // All the hashed passphrases are stored here 
@@ -34,8 +35,13 @@ contract StampRally {
     stampKey.length = numStamps;
   }
 
+  
   function setPassphraseForStamp(uint8 _position, bytes32 _hashedPassphrase) public {
-
+    require(_position < numStamps); // in bounds
+    Stamp storage s = stampKey[_position];
+    require(!s.set);
+    s.set = true;
+    s.hashedPassphrase = _hashedPassphrase;
   }
 
   // Unsalted hash
@@ -46,8 +52,8 @@ contract StampRally {
   function initializeRally(address _player) internal {
     uint64 max = 2**64 - 1;
     require(cards.length < max, "Reached maximum number of players");
-    PlayerRallyCard memory prc = playerToRallyCard[_player];
-    require(!prc.valid, "Player already has a card");
+    //PlayerRallyCard memory prc = playerToRallyCard[_player];
+    //require(!prc.valid, "Player already has a card");
     // make a new card
     uint64 id = uint64(cards.length);
     bool[] memory s = new bool[](numStamps);
@@ -56,10 +62,10 @@ contract StampRally {
   }
   
   function collectStamp(uint8 _position, string memory _passphrase) public {
-    //Rally memory rally = playerToRally[msg.sender];
-    //if (!rally.valid) {
-    //  initializeRally(msg.sender);
-    //}
+    PlayerRallyCard memory prc = playerToRallyCard[msg.sender];
+    if (!prc.valid) {
+      initializeRally(msg.sender);
+    }
     // todo
   }
 
