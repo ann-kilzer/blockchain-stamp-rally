@@ -35,9 +35,12 @@ contract StampRally {
     stampKey.length = numStamps;
   }
 
-  
-  function setPassphraseForStamp(uint8 _position, bytes32 _hashedPassphrase) public {
+  modifier validPosition(uint8 _position) {
     require(_position < numStamps); // in bounds
+    _;
+  }
+  
+  function setPassphraseForStamp(uint8 _position, bytes32 _hashedPassphrase) public validPosition(_position) {
     Stamp storage s = stampKey[_position];
     require(!s.set);
     s.set = true;
@@ -45,30 +48,34 @@ contract StampRally {
   }
 
   // Unsalted hash
-  function generateHash(bool _passphrase) public pure returns (bytes32 hashed) {
+  function generateHash(string memory _passphrase) public pure returns (bytes32 hashed) {
     return keccak256(abi.encode(_passphrase));
   }
 				 
   function initializeRally(address _player) internal {
-    uint64 max = 2**64 - 1;
-    require(cards.length < max, "Reached maximum number of players");
-    //PlayerRallyCard memory prc = playerToRallyCard[_player];
-    //require(!prc.valid, "Player already has a card");
-    // make a new card
-    uint64 id = uint64(cards.length);
-    bool[] memory s = new bool[](numStamps);
-    cards.push(RallyCard(s));
-    playerToRallyCard[_player] = PlayerRallyCard(id, true);
+
   }
   
-  function collectStamp(uint8 _position, string memory _passphrase) public {
+  function collectStamp(uint8 _position, string memory _passphrase) public validPosition(_position) {
     PlayerRallyCard memory prc = playerToRallyCard[msg.sender];
     if (!prc.valid) {
-      initializeRally(msg.sender);
+      uint64 max = 2**64 - 1;
+      require(cards.length < max, "Reached maximum number of players");
+      // make a new card
+      uint64 id = uint64(cards.length);
+      bool[] memory s = new bool[](numStamps);
+      cards.push(RallyCard(s));
+      playerToRallyCard[msg.sender] = PlayerRallyCard(id, true);
     }
-    // todo
+    bytes32 hash = generateHash(_passphrase);
+    Stamp memory sk = stampKey[_position];
+    if (hash == sk.hashedPassphrase) {
+      RallyCard storage rc = cards[prc.id];
+      rc.stamps[_position] = true;
+    }
   }
 
+  // retrieves a stamp for the sender
   function getStamp(uint8 position) public view returns (string memory) {
 
 

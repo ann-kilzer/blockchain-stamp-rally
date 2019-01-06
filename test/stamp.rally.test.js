@@ -47,7 +47,7 @@ contract('StampRally', function(accounts) {
 
     describe("collect stamp", async function() {
 	it("should create a rally if one doesn't exist yet", async function() {
-	    await rally.collectStamp(2, "armadillo");
+	    await rally.collectStamp(2, p2);
 	});
     });
 });
