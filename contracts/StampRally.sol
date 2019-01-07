@@ -2,15 +2,15 @@ pragma solidity 0.5.0;
 
 
 contract StampRally {
-  string public prefix; // url prefix for the stamp images
   uint8 public numStamps;
-  struct Stamp {
+  
+  struct StampKey {
     bytes32 hashedPassphrase;
-    bool set;
+    string url;
   }
 
   // All the hashed passphrases are stored here 
-  Stamp[] internal stampKey;
+  StampKey[] internal stampKeys;
   
   // Represents one users Stamp Rally "Card" 
   struct RallyCard {
@@ -29,10 +29,9 @@ contract StampRally {
   // lookup table between player addresses and card id
   mapping (address => PlayerRallyCard) public playerToRallyCard;
 
-  constructor(uint8 _numStamps, string memory _prefix) public {
-    prefix = _prefix;
+  constructor(uint8 _numStamps) public {
     numStamps = _numStamps;
-    stampKey.length = numStamps;
+    stampKeys.length = numStamps;
   }
 
   modifier validPosition(uint8 _position) {
@@ -40,20 +39,15 @@ contract StampRally {
     _;
   }
   
-  function setPassphraseForStamp(uint8 _position, bytes32 _hashedPassphrase) public validPosition(_position) {
-    Stamp storage s = stampKey[_position];
-    require(!s.set);
-    s.set = true;
+  function setStamp(uint8 _position, bytes32 _hashedPassphrase, string memory _url) public validPosition(_position) {
+    StampKey storage s = stampKeys[_position];
     s.hashedPassphrase = _hashedPassphrase;
+    s.url = _url;
   }
 
   // Unsalted hash
   function generateHash(string memory _passphrase) public pure returns (bytes32 hashed) {
     return keccak256(abi.encode(_passphrase));
-  }
-				 
-  function initializeRally(address _player) internal {
-
   }
   
   function collectStamp(uint8 _position, string memory _passphrase) public validPosition(_position) {
@@ -68,17 +62,29 @@ contract StampRally {
       playerToRallyCard[msg.sender] = PlayerRallyCard(id, true);
     }
     bytes32 hash = generateHash(_passphrase);
-    Stamp memory sk = stampKey[_position];
+    StampKey memory sk = stampKeys[_position];
     if (hash == sk.hashedPassphrase) {
       RallyCard storage rc = cards[prc.id];
       rc.stamps[_position] = true;
     }
   }
 
-  // retrieves a stamp for the sender
-  function getStamp(uint8 position) public view returns (string memory) {
+  // retrieves a stamp url for the sender
+  function getStampImage(uint8 _position) public view returns (string memory) {
+    if (userHasStamp(_position, msg.sender)) {
+      StampKey memory sk = stampKeys[_position];
+      return sk.url;
+    }
+    return "";
+  }
 
-
+  function userHasStamp(uint8 _position, address _user) public view validPosition(_position) returns (bool stamp) {
+    PlayerRallyCard memory prc = playerToRallyCard[_user];
+    if (!prc.valid) {
+      return false;
+    }
+    RallyCard memory rc = cards[prc.id];
+    return rc.stamps[_position];
   }
   
 }
