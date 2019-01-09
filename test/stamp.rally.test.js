@@ -16,6 +16,8 @@ contract('StampRally', function(accounts) {
     let p4 = "pancake prickly pear"
     let p5 = "kangaroo rat"
 
+    let fiona = accounts[1];
+
     let u0 = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Gpa_bill_coyote_pups_3.jpg/1920px-Gpa_bill_coyote_pups_3.jpg";
     let u1 = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nine-banded_Armadillo.jpg/2560px-Nine-banded_Armadillo.jpg";
     let u2 = "https://en.wikipedia.org/wiki/Roadrunner#/media/File:The_Greater_Roadrunner_Walking.jpg";
@@ -70,7 +72,7 @@ contract('StampRally', function(accounts) {
 
     describe("getStampImage", async function() {
 	it("should return an empty string if the stamp is uncollected", async function() {
-	    await rally.collectStamp(0, "penguin");
+	    await rally.collectStamp(0, "penguin"); // inits the card
 	    for (let i = 0; i < numStamps; i++) {
 		assert.equal("", await rally.getStampImage(i), "expected an empty string");
 	    }
@@ -86,5 +88,28 @@ contract('StampRally', function(accounts) {
 	it("should return empty string on an invalid card", async function() {
 	    assert.equal("", await rally.getStampImage(1), "expected an empty string");
 	});
+    });
+
+    describe("userHasStamp", async function() {
+	it("should return false if the stamp is uncollected", async function() {
+	    await rally.collectStamp(0, "penguin", {from: fiona}); // inits the card
+	    for (let i = 0; i < numStamps; i++) {
+		assert.equal(false, await rally.userHasStamp(i, fiona), "expected an empty string");
+	    }
+	});
+
+	it("should return true if the stamp is collected", async function() {
+	    await rally.collectStamp(5, p5, {from: fiona});
+	    assert.equal(true, await rally.userHasStamp(5, fiona), "Expected true");
+	});
+
+	it("should revert on an invalid position", async function() {
+	    await shouldFail.reverting(rally.userHasStamp(6, fiona));
+	});
+
+	it("should return false on an invalid card", async function() {
+	    assert.equal(false, await rally.userHasStamp(1, fiona), "Expected false");
+	});
+	   
     });
 });
