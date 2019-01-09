@@ -1,3 +1,5 @@
+const shouldFail = require('./../contracts/openzeppelin-solidity/test/helpers/shouldFail.js');
+
 var StampRally = artifacts.require("StampRally.sol");
 
 const should = require('chai').should();
@@ -57,13 +59,18 @@ contract('StampRally', function(accounts) {
 	});
 
 	it("should ignore a bad passphrase", async function() {
-	    await rally.collectStamp(4, "pink fairy armadillo"); //
+	    await rally.collectStamp(4, "pink fairy armadillo"); // it's from argentina!!!
 	    assert.isNotOk(await rally.userHasStamp(4, accounts[0]), "Stamp should not be present");
+	});
+
+	it("should revert on an invalid position", async function() {
+	    await shouldFail.reverting(rally.collectStamp(6, "rattlesnake"));
 	});
     });
 
     describe("getStampImage", async function() {
 	it("should return an empty string if the stamp is uncollected", async function() {
+	    await rally.collectStamp(0, "penguin");
 	    for (let i = 0; i < numStamps; i++) {
 		assert.equal("", await rally.getStampImage(i), "expected an empty string");
 	    }
@@ -71,6 +78,13 @@ contract('StampRally', function(accounts) {
 	it("should return the image url if the stamp is collected", async function() {
 	    await rally.collectStamp(3, p3);
 	    assert.equal(u3, await rally.getStampImage(3), "Unexpected url");
+	});
+	it("should revert on an invalid position", async function() {
+	    await rally.collectStamp(3, p3);
+	    await shouldFail.reverting(rally.getStampImage(6));
+	});
+	it("should return empty string on an invalid card", async function() {
+	    assert.equal("", await rally.getStampImage(1), "expected an empty string");
 	});
     });
 });

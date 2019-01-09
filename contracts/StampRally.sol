@@ -80,7 +80,7 @@ contract StampRally {
 
   function userHasStamp(uint8 _position, address _user) public view validPosition(_position) returns (bool stamp) {
     PlayerRallyCard memory prc = playerToRallyCard[_user];
-    if (!prc.valid) {
+    if(!prc.valid) {
       return false;
     }
     RallyCard memory rc = cards[prc.id];
