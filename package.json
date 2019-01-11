@@ -1,7 +1,14 @@
 {
        "dependencies": {
+              "@nblackburn/vue-brunch": "^2.0.1",
+              "babel-brunch": "^7.0.0",
+              "babel-eslint": "^10.0.1",
               "bignumber.js": "^8.0.1",
+              "brunch": "^2.10.17",
               "chai": "^4.1.2",
-              "chai-bignumber": "^3.0.0"
+              "chai-bignumber": "^3.0.0",
+              "vue": "^2.5.21",
+              "vue-brunch": "^2.0.3",
+              "vuetify": "^1.4.1"
        }
 }
