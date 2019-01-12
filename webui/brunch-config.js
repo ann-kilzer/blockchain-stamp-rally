@@ -2,9 +2,14 @@ module.exports = {
     files: {
 	javascripts: {
 	    joinTo: {
-		'vendor.js': /node_modules/,
-		'app.js': ['app/*.js', 'app/*.vue']
+		'js/vendor.js': /^node_modules/,
+		'js/app.js': ['app/init.js', 'app/App.vue']
 	    }
+	},
+	templates: {
+	    joinTo: {
+		'app.js' : 'app/App.vue'
+		    }
 	},
 	stylesheets: {
 	    joinTo: {
@@ -13,8 +18,4 @@ module.exports = {
 	    }
 	},
     },
-    plugins: {
-	babel: {
-	}
-    }
 }

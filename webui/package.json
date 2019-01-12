@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "serve": "brunch watch --server"
+    },
+    "dependencies": {
+        "babel-brunch": "^7.0.0",
+        "brunch": "^2.10.17",
+        "vue": "^2.5.21",
+        "vueify": "^9.4.1",
+        "vuetify": "^1.4.1"
+    }
+}

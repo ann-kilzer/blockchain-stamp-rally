@@ -10,6 +10,9 @@ export default {
   name: 'app',
   data(){
     return {}
+  },
+  created () {
+    console.log("vue is working")
   }
 }	
 </script>
