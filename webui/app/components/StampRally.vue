@@ -7,8 +7,8 @@
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-container>
-        <v-layout v-bind="binding">
-          <v-flex v-for="stamp in stamps" :key=stamp md4 pa-3>
+        <v-layout wrap justify-space-around>
+          <v-flex v-for="(stamp, index) in stamps" :key=index xs12 md6 lg4 pa-3>
             <v-card>
               <v-container><v-layout column justify-center>
               <v-img src="http://placekitten.com/200/200"></v-img>
@@ -28,16 +28,7 @@
     name: 'stampRally',
     data() {
       return {
-        stamps: [1, 2, 3]
-      }
-    },
-    computed: {
-      binding () {
-        const binding = {}
-
-        if (!this.$vuetify.breakpoint.mdAndUp) binding.column = true
-
-        return binding
+        stamps: [1, 2, 3, 4, 5, 6, 7, 8 , 9, 10, 11, 12]
       }
     }
   }
