@@ -18,5 +18,6 @@
     "babel-preset-es2015": "^6.24.1",
     "brunch": "^2.10.10",
     "vue-brunch": "^2.0.1"
-  }
+  },
+  "license": "MIT"
 }
