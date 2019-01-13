@@ -1,4 +1,5 @@
 <template>
+  <div class="secondary">
   <v-container>
     <v-card>
       <v-toolbar color="primary" dark>
@@ -6,13 +7,13 @@
         <v-toolbar-title>Blockchain Stamp Rally</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
-      <v-container>
+      <v-container class="primary lighten-3">
         <v-layout wrap justify-space-around>
           <v-flex v-for="(stamp, index) in stamps" :key=index xs12 md6 lg4 pa-3>
             <v-card>
               <v-container><v-layout column justify-center>
               <v-img src="http://placekitten.com/200/200"></v-img>
-              <v-btn color="secondary" class="mt-4">Collect Stamp</v-btn>
+              <v-btn color="primary" class="mt-4">Collect Stamp</v-btn>
               </v-layout></v-container>
             </v-card>
           </v-flex>
@@ -20,7 +21,7 @@
       </v-container>
     </v-card>
   </v-container>
-  
+  </div>
 </template>
 
 <script>

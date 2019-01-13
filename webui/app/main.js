@@ -8,9 +8,9 @@ Vue.config.productionTip = false
 
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.blue.lighten2,
-    secondary: colors.blue.darken1,
-    accent: colors.orange.lighten3
+    primary: colors.blue.darken1,
+    secondary: colors.orange.lighten5,
+    accent: colors.red.accent3
   }
 })
 
