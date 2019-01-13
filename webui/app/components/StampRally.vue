@@ -2,7 +2,9 @@
   <v-container>
     <v-card>
       <v-toolbar color="primary" dark>
+        <v-spacer></v-spacer>
         <v-toolbar-title>Blockchain Stamp Rally</v-toolbar-title>
+        <v-spacer></v-spacer>
       </v-toolbar>
       <v-container>
         <v-layout row>

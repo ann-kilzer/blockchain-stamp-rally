@@ -21,11 +21,4 @@ module.exports = {
       presets: ['es2015']
     }
   },
-  npm: {
-    enabled: true,
-    styles: {
-      'vuetify': ['dist/vuetify.css'],
-      'typeface-roboto': ['index.css']
-    },
-  }
 }
