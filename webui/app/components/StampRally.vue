@@ -7,7 +7,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-container>
-        <v-layout row>
+        <v-layout v-bind="binding">
           <v-flex v-for="stamp in stamps" :key=stamp md4 pa-3>
             <v-card>
               <v-container><v-layout column justify-center>
@@ -29,6 +29,15 @@
     data() {
       return {
         stamps: [1, 2, 3]
+      }
+    },
+    computed: {
+      binding () {
+        const binding = {}
+
+        if (!this.$vuetify.breakpoint.mdAndUp) binding.column = true
+
+        return binding
       }
     }
   }
