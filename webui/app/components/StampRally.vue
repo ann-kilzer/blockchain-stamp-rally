@@ -16,12 +16,12 @@
               <v-btn 
                 color="primary" 
                 class="mt-4" 
-                v-if="!stamp.collectForm" 
+                v-if="!stamp.collectForm && stamp.url == null" 
                 @click="collectStamp(stamp)"
                 block
                 >Collect Stamp
               </v-btn>
-              <v-card-actions v-else class="justify-center"><v-form>
+              <v-card-actions v-else-if="stamp.url== null" class="justify-center"><v-form>
                 <v-text-field 
                   label="Passphrase" 
                   v-model="stamp.passphrase"
@@ -37,6 +37,7 @@
                 </v-btn>
                 <v-btn @click="stamp.collectForm = false">Cancel</v-btn>
               </v-form></v-card-actions>
+              <v-container v-else class="mb-3"></v-container>
               </v-layout></v-container>
             </v-card>
           </v-flex>
@@ -81,6 +82,7 @@
         stamp.collectForm = false;
         console.log("Passphrase is " + stamp.passphrase)
         // todo
+        stamp.passphrase = "";
       }
     }
   }
