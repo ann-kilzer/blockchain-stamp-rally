@@ -22,11 +22,20 @@
                 >Collect Stamp
               </v-btn>
               <v-card-actions v-else class="justify-center"><v-form>
-                <v-text-field label="Passphrase"></v-text-field>
+                <v-text-field 
+                  label="Passphrase" 
+                  v-model="stamp.passphrase"
+                  :rules="[() => !!stamp.passphrase || 'Passphrase is required']"
+                  required
+                  class="mb-2">
+                  </v-text-field>
                 <v-btn 
                   color="accent" 
                   @click="submitPassphrase(stamp)"
-                  block>Submit</v-btn>
+                  :disabled="stamp.passphrase ==''"
+                  >Submit
+                </v-btn>
+                <v-btn @click="stamp.collectForm = false">Cancel</v-btn>
               </v-form></v-card-actions>
               </v-layout></v-container>
             </v-card>
@@ -57,7 +66,7 @@
           let blankStamp = {
             url: null,
             collectForm: false,
-            passphrase: null
+            passphrase: ""
           };
           this.stamps.push(blankStamp);
         }
@@ -70,7 +79,8 @@
       },
       submitPassphrase(stamp) {
         stamp.collectForm = false;
-
+        console.log("Passphrase is " + stamp.passphrase)
+        // todo
       }
     }
   }
