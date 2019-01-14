@@ -12,8 +12,22 @@
           <v-flex v-for="(stamp, index) in stamps" :key=index xs12 md6 lg4 pa-3>
             <v-card>
               <v-container><v-layout column justify-center>
-              <v-img src="http://placekitten.com/200/200"></v-img>
-              <v-btn color="primary" class="mt-4">Collect Stamp</v-btn>
+              <v-img :src="getURL(stamp)"></v-img>
+              <v-btn 
+                color="primary" 
+                class="mt-4" 
+                v-if="!stamp.collectForm" 
+                @click="collectStamp(stamp)"
+                block
+                >Collect Stamp
+              </v-btn>
+              <v-card-actions v-else class="justify-center"><v-form>
+                <v-text-field label="Passphrase"></v-text-field>
+                <v-btn 
+                  color="accent" 
+                  @click="submitPassphrase(stamp)"
+                  block>Submit</v-btn>
+              </v-form></v-card-actions>
               </v-layout></v-container>
             </v-card>
           </v-flex>
@@ -29,7 +43,34 @@
     name: 'stampRally',
     data() {
       return {
-        stamps: [1, 2, 3, 4, 5, 6, 7, 8 , 9, 10, 11, 12]
+        emptyURL: "http://placekitten.com/200/200",
+        stamps: [],
+        numStamps: 12
+      }
+    },
+    created() {
+      this.setup()
+    },
+    methods: {
+      setup() {
+        for (var i = 0; i < this.numStamps; i++) {
+          let blankStamp = {
+            url: null,
+            collectForm: false,
+            passphrase: null
+          };
+          this.stamps.push(blankStamp);
+        }
+      },
+      getURL(stamp) {
+        return (stamp.url) ? stamp.url : this.emptyURL;
+      },
+      collectStamp(stamp) {
+        stamp.collectForm = true;
+      },
+      submitPassphrase(stamp) {
+        stamp.collectForm = false;
+
       }
     }
   }
