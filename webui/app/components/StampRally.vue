@@ -6,7 +6,31 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>Blockchain Stamp Rally</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-badge color="accent" overlap v-model="unlinked">
+          <span slot="badge">!</span>
+          <v-btn icon @click="settingsPanel = true"><v-icon>settings</v-icon></v-btn>
+        </v-badge>
       </v-toolbar>
+      <v-expand-transition>
+        <v-container v-if="settingsPanel">
+          <v-form>
+            <v-text-field
+              label="Contract Address"
+              v-model="address"
+              :rules="[() => !!address || 'Address is required']"
+              required
+              class="mb-2">
+            </v-text-field>
+            <v-btn 
+                  color="accent" 
+                  @click="linkContract()"
+                  :disabled="address ==''"
+                  >Link
+                </v-btn>
+            <v-btn @click="settingsPanel = false">Cancel</v-btn>
+          </v-form>
+        </v-container>
+      </v-expand-transition>
       <v-container class="primary lighten-3">
         <v-layout wrap justify-space-around>
           <v-flex v-for="(stamp, index) in stamps" :key=index xs12 md6 lg4 pa-3>
@@ -21,6 +45,7 @@
                 block
                 >Collect Stamp
               </v-btn>
+              <!--Submit passphrase-->
               <v-card-actions v-else-if="stamp.url== null" class="justify-center"><v-form>
                 <v-text-field 
                   label="Passphrase" 
@@ -37,6 +62,7 @@
                 </v-btn>
                 <v-btn @click="stamp.collectForm = false">Cancel</v-btn>
               </v-form></v-card-actions>
+              <!-- the void -->
               <v-container v-else class="mb-3"></v-container>
               </v-layout></v-container>
             </v-card>
@@ -55,7 +81,10 @@
       return {
         emptyURL: "http://placekitten.com/200/200",
         stamps: [],
-        numStamps: 12
+        numStamps: 12,
+        settingsPanel: false,
+        address: "",
+        unlinked: true
       }
     },
     created() {
@@ -83,6 +112,12 @@
         console.log("Passphrase is " + stamp.passphrase)
         // todo
         stamp.passphrase = "";
+      },
+      async linkContract() {
+        console.log("link contract");
+        // todo
+        this.settingsPanel = false;
+        this.unlinked = false;
       }
     }
   }
