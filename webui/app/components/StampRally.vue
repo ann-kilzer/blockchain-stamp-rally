@@ -75,6 +75,9 @@
 </template>
 
 <script>
+  import Web3 from 'web3'
+  //import contract from 'truffle-contract';
+
   export default {
     name: 'stampRally',
     data() {
@@ -118,7 +121,11 @@
         console.log("link contract");
         // todo
         try {
-          // todo: link to contract instance
+          let provider = new Web3.providers.HttpProvider("http://localhost:8545");
+
+          //this.stampRally = contract(this.$root.json)
+          //this.stampRally.setProvider(provider); 
+
           this.settingsPanel = false;
           this.unlinked = false;
         } catch (e) {
