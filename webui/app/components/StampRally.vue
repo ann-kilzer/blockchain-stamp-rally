@@ -84,7 +84,8 @@
         numStamps: 12,
         settingsPanel: false,
         address: "",
-        unlinked: true
+        unlinked: true,
+        stampRally: null
       }
     },
     created() {
@@ -116,8 +117,13 @@
       async linkContract() {
         console.log("link contract");
         // todo
-        this.settingsPanel = false;
-        this.unlinked = false;
+        try {
+          // todo: link to contract instance
+          this.settingsPanel = false;
+          this.unlinked = false;
+        } catch (e) {
+          console.error(e)
+        }
       }
     }
   }

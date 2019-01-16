@@ -14,9 +14,23 @@ Vue.use(Vuetify, {
   }
 })
 
+// todo
+// setup web3? and truffle-contract
+//let provider = new Web3.providers.HttpProvider("http://localhost:8545");
+//let contract = require("truffle-contract");
+
+let StampRallyJson = require('./StampRally.json');
+
+console.log(StampRallyJson)
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
+    data () {
+      return {
+        json: StampRallyJson
+      }
+    },
     router,
     render: h => h(App)
 })
