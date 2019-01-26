@@ -31,7 +31,13 @@
           </v-form>
         </v-container>
       </v-expand-transition>
-      <v-container class="primary lighten-3">
+      <!-- No Stamps-->
+      <v-container v-if="numStamps == 0" class="primary lighten-3">
+        <div class="title font-weight-light">No Contract linked, or contract has no stamps to collect. 
+          Please set a valid contract address under settings.
+        </div>
+      </v-container>
+      <v-container v-else class="primary lighten-3">
         <v-layout wrap justify-space-around>
           <v-flex v-for="(stamp, index) in stamps" :key=index xs12 md6 lg4 pa-3>
             <v-card>
@@ -85,9 +91,9 @@
         contract: null,
         emptyURL: "http://placekitten.com/200/200",
         stamps: [],
-        numStamps: 12,
+        numStamps: 0,
         settingsPanel: false,
-        address: "0x1C6e0Ae043a33b469d117d65947Afd0B1F47cEaC",
+        address: "0x2bC4507106702ef5EAD0055AA0e5F8D2A9389499",
         unlinked: true,
         stampRally: null
       }
@@ -96,11 +102,10 @@
       this.setupWeb3()
     },
     created() {
-      this.setupPage()
+
     },
     methods: {
       setupPage() {
-        // todo: Dynamically get numStamps from contract
         for (var i = 0; i < this.numStamps; i++) {
           let blankStamp = {
             index: i,
@@ -118,25 +123,56 @@
         stamp.collectForm = true;
       },
       submitPassphrase(stamp) {
+        let that = this;
         stamp.collectForm = false;
         console.log("Passphrase is " + stamp.passphrase)
-        // todo
+        
+        try {
+          this.contract.methods.collectStamp(stamp.index, stamp.passphrase).call((err, result) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+
+            console.log(result)
+          }).then(function() {
+            that.updateStamp(stamp)
+          })
+        } catch(e) {
+          console.error(e)
+        }
+
         stamp.passphrase = "";
+      },
+      async updateStamp(stamp) {
+        this.contract.methods.getStampImage(stamp.index).call((err, URL) => {
+          if (err) {
+            console.error(err)
+              return
+            }
+
+          if (URL != "") {
+            console.log("Updating stamp")
+            stamp.url = URL
+          } else {
+            console.log("No stamp found")
+          }  
+        })
       },
       async linkContract() {
         console.log("link contract");
+        let that = this;
         try {
-          // todo
           this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
-          console.log(this.contract.methods)
 
-          this.contract.methods.numStamps().call((err, result) => { 
+          this.contract.methods.numStamps().call((err, numStamps) => { 
             if (err) {
               console.error(err)
               return
             }
             
-            console.log("NumStamps", result) 
+            that.numStamps = numStamps
+            that.setupPage()
           })
 
           this.settingsPanel = false;
