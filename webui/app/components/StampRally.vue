@@ -87,7 +87,7 @@
         stamps: [],
         numStamps: 12,
         settingsPanel: false,
-        address: "",
+        address: "0x1C6e0Ae043a33b469d117d65947Afd0B1F47cEaC",
         unlinked: true,
         stampRally: null
       }
@@ -100,8 +100,10 @@
     },
     methods: {
       setupPage() {
+        // todo: Dynamically get numStamps from contract
         for (var i = 0; i < this.numStamps; i++) {
           let blankStamp = {
+            index: i,
             url: null,
             collectForm: false,
             passphrase: ""
@@ -126,8 +128,16 @@
         try {
           // todo
           this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
+          console.log(this.contract.methods)
 
-          console.log(this.contract)
+          this.contract.methods.numStamps().call((err, result) => { 
+            if (err) {
+              console.error(err)
+              return
+            }
+            
+            console.log("NumStamps", result) 
+          })
 
           this.settingsPanel = false;
           this.unlinked = false;
