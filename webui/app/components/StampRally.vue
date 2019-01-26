@@ -76,12 +76,13 @@
 
 <script>
   import Web3 from 'web3'
-  //import contract from 'truffle-contract';
 
   export default {
     name: 'stampRally',
     data() {
       return {
+        web3: null,
+        contract: null,
         emptyURL: "http://placekitten.com/200/200",
         stamps: [],
         numStamps: 12,
@@ -91,11 +92,14 @@
         stampRally: null
       }
     },
+    beforeMount() {
+      this.setupWeb3()
+    },
     created() {
-      this.setup()
+      this.setupPage()
     },
     methods: {
-      setup() {
+      setupPage() {
         for (var i = 0; i < this.numStamps; i++) {
           let blankStamp = {
             url: null,
@@ -121,16 +125,24 @@
         console.log("link contract");
         // todo
         try {
-          let provider = new Web3.providers.HttpProvider("http://localhost:8545");
-
-          //this.stampRally = contract(this.$root.json)
-          //this.stampRally.setProvider(provider); 
+          // todo
 
           this.settingsPanel = false;
           this.unlinked = false;
         } catch (e) {
           console.error(e)
         }
+      },
+      setupWeb3() {
+        if (typeof window.web3 !== 'undefined') {
+          this.web3 = new Web3(window.web3.currentProvider);
+        } else {
+          // set the provider you want from Web3.providers
+          console.log('No web3 found. Falling back to Mist 🌫️ or MetaMask 🦊')
+          this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        this.contract = new this.web3.eth.Contract(this.$root.json.abi);
       }
     }
   }
