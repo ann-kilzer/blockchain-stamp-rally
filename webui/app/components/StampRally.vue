@@ -123,9 +123,11 @@
       },
       async linkContract() {
         console.log("link contract");
-        // todo
         try {
           // todo
+          this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
+
+          console.log(this.contract)
 
           this.settingsPanel = false;
           this.unlinked = false;
@@ -141,8 +143,6 @@
           console.log('No web3 found. Falling back to Mist 🌫️ or MetaMask 🦊')
           this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
         }
-
-        this.contract = new this.web3.eth.Contract(this.$root.json.abi);
       }
     }
   }
