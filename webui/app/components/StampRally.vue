@@ -94,6 +94,7 @@
         numStamps: 0,
         settingsPanel: false,
         address: "0x956F95bEb963a4435eC045705b1cECE1cd90258F",
+        sender: "0x394fD80C7CC2fD7738fAB219c30db6d84Bfe2239",
         unlinked: true,
         stampRally: null
       }
@@ -126,15 +127,17 @@
         let that = this;
         stamp.collectForm = false;
         console.log("Passphrase is " + stamp.passphrase)
-        
+        console.log("Sending from " + this.sender)
         try {
-          this.contract.methods.collectStamp(stamp.index, stamp.passphrase).call((err, result) => {
+          this.contract.methods.collectStamp(stamp.index, stamp.passphrase).send(
+            {from: this.sender},
+            (err, txHash) => {
             if (err) {
               console.error(err)
               return
             }
 
-            console.log(result)
+            console.log(txHash)
           }).then(function() {
             that.updateStamp(stamp)
           })
@@ -165,7 +168,6 @@
         try {
           this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
 
-          console.log(this.contract.methods)
           this.contract.methods.numStamps().call((err, numStamps) => { 
             if (err) {
               console.error(err)
