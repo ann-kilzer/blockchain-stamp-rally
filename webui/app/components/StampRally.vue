@@ -93,7 +93,7 @@
         stamps: [],
         numStamps: 0,
         settingsPanel: false,
-        address: "0x2bC4507106702ef5EAD0055AA0e5F8D2A9389499",
+        address: "0x956F95bEb963a4435eC045705b1cECE1cd90258F",
         unlinked: true,
         stampRally: null
       }
@@ -165,18 +165,21 @@
         try {
           this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
 
+          console.log(this.contract.methods)
           this.contract.methods.numStamps().call((err, numStamps) => { 
             if (err) {
               console.error(err)
               return
             }
-            
-            that.numStamps = numStamps
-            that.setupPage()
+            if (numStamps == null) {
+              console.error("Invalid response to numStamps()")
+            } else {
+              that.numStamps = numStamps
+              that.setupPage()
+              that.settingsPanel = false
+              that.unlinked = false
+            }
           })
-
-          this.settingsPanel = false;
-          this.unlinked = false;
         } catch (e) {
           console.error(e)
         }
