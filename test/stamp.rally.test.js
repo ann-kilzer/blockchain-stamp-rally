@@ -25,6 +25,13 @@ contract('StampRally', function(accounts) {
     let u4 = "http://www.americansouthwest.net/california/photographs700/opuntia-chlorotica.jpg";
     let u5 = "https://en.wikipedia.org/wiki/Kangaroo_rat#/media/File:Kangaroo-rat.jpg";
 
+    let prompt0 = "trickster god"
+    let prompt1 = "armored beast"
+    let prompt2 = "New Mexico State Bird"
+    let prompt3 = "Cute cactus"
+    let prompt4 = "Breakfast cactus"
+    let prompt5 = "Jumping nezumi"
+    
     let h0, h1, h2, h3, h4, h5;
     
     let rally;
@@ -38,12 +45,12 @@ contract('StampRally', function(accounts) {
 	h4 = await rally.generateHash(p4);
 	h5 = await rally.generateHash(p5);
 
-	rally.setStamp(0, h0, u0);
-	rally.setStamp(1, h1, u1);
-	rally.setStamp(2, h2, u2);
-	rally.setStamp(3, h3, u3);
-	rally.setStamp(4, h4, u4);
-	rally.setStamp(5, h5, u5);
+	rally.setStamp(0, h0, u0, prompt0);
+	rally.setStamp(1, h1, u1, prompt1);
+	rally.setStamp(2, h2, u2, prompt2);
+	rally.setStamp(3, h3, u3, prompt3);
+	rally.setStamp(4, h4, u4, prompt4);
+	rally.setStamp(5, h5, u5, prompt5);
 	
     });
 
@@ -87,6 +94,21 @@ contract('StampRally', function(accounts) {
 	});
 	it("should return empty string on an invalid card", async function() {
 	    assert.equal("", await rally.getStampImage(1), "expected an empty string");
+	});
+    });
+
+    describe("getStampPrompt", async function() {
+	it("should get a stamp prompt", async function() {
+	    assert.equal(prompt0, await rally.getStampPrompt(0));
+	    assert.equal(prompt1, await rally.getStampPrompt(1));
+	    assert.equal(prompt2, await rally.getStampPrompt(2));
+	    assert.equal(prompt3, await rally.getStampPrompt(3));
+	    assert.equal(prompt4, await rally.getStampPrompt(4));
+	    assert.equal(prompt5, await rally.getStampPrompt(5));
+	    
+	});
+	it("should revert on an invalid position", async function() {
+	    await shouldFail.reverting(rally.getStampPrompt(6));
 	});
     });
 

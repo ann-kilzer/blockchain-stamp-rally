@@ -7,6 +7,7 @@ contract StampRally {
   struct StampKey {
     bytes32 hashedPassphrase;
     string url;
+    string prompt;
   }
 
   // All the hashed passphrases are stored here 
@@ -39,10 +40,14 @@ contract StampRally {
     _;
   }
   
-  function setStamp(uint8 _position, bytes32 _hashedPassphrase, string memory _url) public validPosition(_position) {
+  function setStamp(uint8 _position,
+		    bytes32 _hashedPassphrase,
+		    string memory _url,
+		    string memory _prompt) public validPosition(_position) {
     StampKey storage s = stampKeys[_position];
     s.hashedPassphrase = _hashedPassphrase;
     s.url = _url;
+    s.prompt = _prompt;
   }
 
   // Unsalted hash
@@ -76,6 +81,12 @@ contract StampRally {
       return sk.url;
     }
     return "";
+  }
+
+  // retrieves stamp prompt
+  function getStampPrompt(uint8 _position) public view validPosition(_position) returns (string memory) {
+    StampKey memory sk = stampKeys[_position];
+    return sk.prompt;
   }
 
   function userHasStamp(uint8 _position, address _user) public view validPosition(_position) returns (bool stamp) {
