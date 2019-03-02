@@ -4,7 +4,7 @@
     <v-card>
       <v-toolbar color="primary" dark>
         <v-spacer></v-spacer>
-        <v-toolbar-title>Blockchain Stamp Rally</v-toolbar-title>
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-badge color="accent" overlap v-model="unlinked">
           <span slot="badge">!</span>
@@ -43,6 +43,7 @@
             <v-card>
               <v-container><v-layout column justify-center>
               <v-img :src="getURL(stamp)"></v-img>
+              <span v-if="stamp.prompt != ''">stamp.prompt</span>
               <v-btn 
                 color="primary" 
                 class="mt-4" 
@@ -93,10 +94,11 @@
         stamps: [],
         numStamps: 0,
         settingsPanel: false,
-        address: "0x956F95bEb963a4435eC045705b1cECE1cd90258F",
+        address: "0x7a175ca89D6d042933bf437058662e8EDb3207f8",
         sender: "0x394fD80C7CC2fD7738fAB219c30db6d84Bfe2239",
         unlinked: true,
-        stampRally: null
+        stampRally: null,
+        title: "Blockchain Stamp Rally!!!"
       }
     },
     beforeMount() {
@@ -112,7 +114,8 @@
             index: i,
             url: null,
             collectForm: false,
-            passphrase: ""
+            passphrase: "",
+            prompt: "",
           };
           this.stamps.push(blankStamp);
         }
@@ -163,8 +166,6 @@
         })
       },
       async linkContract() {
-        console.log("link contract");
-        let that = this;
         try {
           this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
 
@@ -176,10 +177,22 @@
             if (numStamps == null) {
               console.error("Invalid response to numStamps()")
             } else {
-              that.numStamps = numStamps
-              that.setupPage()
-              that.settingsPanel = false
-              that.unlinked = false
+              this.numStamps = numStamps
+              this.setupPage()
+              this.settingsPanel = false
+              this.unlinked = false
+            }
+          })
+
+          this.contract.methods.name().call((err, name) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            if (name === null) {
+              console.error("Invalid response to name()")
+            } else {
+              this.title = name;
             }
           })
         } catch (e) {
