@@ -4,7 +4,7 @@ let pic = "https://en.wikipedia.org/wiki/Kangaroo_rat#/media/File:Kangaroo-rat.j
 
 module.exports = function(deployer) {
 
-    deployer.deploy(StampRally, numStamps);
+    deployer.deploy(StampRally, numStamps, "Blockchain Stamp Rally");
 
     let rally;
     deployer.then(function() {

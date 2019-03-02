@@ -3,6 +3,7 @@ pragma solidity 0.5.0;
 
 contract StampRally {
   uint8 public numStamps;
+  string public name;
   
   struct StampKey {
     bytes32 hashedPassphrase;
@@ -30,9 +31,11 @@ contract StampRally {
   // lookup table between player addresses and card id
   mapping (address => PlayerRallyCard) public playerToRallyCard;
 
-  constructor(uint8 _numStamps) public {
+  constructor(uint8 _numStamps,
+	      string memory _name) public {
     numStamps = _numStamps;
     stampKeys.length = numStamps;
+    name = _name;
   }
 
   modifier validPosition(uint8 _position) {

@@ -7,7 +7,8 @@ const should = require('chai').should();
 contract('StampRally', function(accounts) {
 
     let numStamps = 6;
-
+    let name = "Flora and Fauna of the American Southwest"
+    
     // Flora and Fauna of the American Southwest
     let p0 = "coyote"
     let p1 = "armadillo"
@@ -37,7 +38,7 @@ contract('StampRally', function(accounts) {
     let rally;
     
     beforeEach(async function () {
-	rally = await StampRally.new(numStamps);
+	rally = await StampRally.new(numStamps, name);
 	h0 = await rally.generateHash(p0);
 	h1 = await rally.generateHash(p1);
 	h2 = await rally.generateHash(p2);
@@ -57,6 +58,7 @@ contract('StampRally', function(accounts) {
     describe("constructor", async function() {
 	it("should make a new stamp rally", async function() {
 	    assert.equal((await rally.numStamps()).toNumber(), numStamps, "NumStamps didn't match");
+	    assert.equal((await rally.name()), name, "Name didn't match");
 	});
     });
 
