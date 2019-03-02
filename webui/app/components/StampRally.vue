@@ -43,10 +43,14 @@
             <v-card>
               <v-container><v-layout column justify-center>
               <v-img :src="getURL(stamp)"></v-img>
-              <span v-if="stamp.prompt != ''">stamp.prompt</span>
+              <v-flex 
+                class="mt-3 text-xs-center" 
+                v-if="stamp.prompt != ''">
+                <span>{{ stamp.prompt }}</span>
+              </v-flex>
               <v-btn 
                 color="primary" 
-                class="mt-4" 
+                class="mt-3" 
                 v-if="!stamp.collectForm && stamp.url == null" 
                 @click="collectStamp(stamp)"
                 block
@@ -98,7 +102,7 @@
         sender: "0x394fD80C7CC2fD7738fAB219c30db6d84Bfe2239",
         unlinked: true,
         stampRally: null,
-        title: "Blockchain Stamp Rally!!!"
+        title: "Blockchain Stamp Rally"
       }
     },
     beforeMount() {
@@ -115,10 +119,21 @@
             url: null,
             collectForm: false,
             passphrase: "",
-            prompt: "",
+            prompt: this.getPrompt(i),
           };
           this.stamps.push(blankStamp);
         }
+      },
+      getPrompt(i) {
+        this.contract.methods.getStampPrompt(i).call((err, prompt) => { 
+          if (err) {
+            console.errror(err);
+            return;
+          }
+          if (prompt !== null) {
+            this.stamps[i].prompt = prompt;            
+          }
+        })
       },
       getURL(stamp) {
         return (stamp.url) ? stamp.url : this.emptyURL;
