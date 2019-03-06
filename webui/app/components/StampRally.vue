@@ -99,7 +99,6 @@
         numStamps: 0,
         settingsPanel: false,
         address: "0x5f5947E7fce03c38dFe4069a687aFAfE654449bE",
-        sender: "0xb7455b4c9e069371da555eecb2c33dd63b2c19cb", // todo: get sender from web3
         unlinked: true,
         stampRally: null,
         title: "Blockchain Stamp Rally"
@@ -142,14 +141,23 @@
       collectStamp(stamp) {
         stamp.collectForm = true;
       },
-      submitPassphrase(stamp) {
+      async submitPassphrase(stamp) {
         let that = this;
         stamp.collectForm = false;
-        console.log("Passphrase is " + stamp.passphrase)
-        console.log("Sending from " + this.sender)
+        let sender;
+        await this.web3.eth.getAccounts().then((response) => { 
+          console.log(response)
+          sender = response[0]
+        });
+        
+        if (sender === undefined) {
+          console.warn("No sender. Unable to collect stamp")
+          return
+        }
+
         try {
           this.contract.methods.collectStamp(stamp.index, stamp.passphrase).send(
-            {from: this.sender},
+            {from: sender},
             (err, txHash) => {
             if (err) {
               console.error(err)
