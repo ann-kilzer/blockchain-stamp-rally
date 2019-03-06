@@ -146,7 +146,6 @@
         stamp.collectForm = false;
         let sender;
         await this.web3.eth.getAccounts().then((response) => { 
-          console.log(response)
           sender = response[0]
         });
         
