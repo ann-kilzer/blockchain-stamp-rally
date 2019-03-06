@@ -1,6 +1,6 @@
 <template>
-  <div class="secondary">
-  <v-container>
+  <v-container fluid class="secondary">
+  <v-layout align-start justify-center row fill-height>
     <v-card>
       <v-toolbar color="primary" dark>
         <v-spacer></v-spacer>
@@ -81,8 +81,8 @@
         </v-layout>
       </v-container>
     </v-card>
+  </v-layout>
   </v-container>
-  </div>
 </template>
 
 <script>
