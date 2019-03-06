@@ -45,7 +45,7 @@
               <v-img :src="getURL(stamp)"></v-img>
               <v-flex 
                 class="mt-3 text-xs-center" 
-                v-if="stamp.prompt != ''">
+                >
                 <span>{{ stamp.prompt }}</span>
               </v-flex>
               <v-btn 
@@ -98,8 +98,8 @@
         stamps: [],
         numStamps: 0,
         settingsPanel: false,
-        address: "0x7a175ca89D6d042933bf437058662e8EDb3207f8",
-        sender: "0x394fD80C7CC2fD7738fAB219c30db6d84Bfe2239",
+        address: "0x5f5947E7fce03c38dFe4069a687aFAfE654449bE",
+        sender: "0xb7455b4c9e069371da555eecb2c33dd63b2c19cb", // todo: get sender from web3
         unlinked: true,
         stampRally: null,
         title: "Blockchain Stamp Rally"
@@ -121,6 +121,7 @@
             passphrase: "",
             prompt: this.getPrompt(i),
           };
+          this.updateStamp(blankStamp);
           this.stamps.push(blankStamp);
         }
       },
@@ -165,7 +166,7 @@
 
         stamp.passphrase = "";
       },
-      async updateStamp(stamp) {
+      updateStamp(stamp) {
         this.contract.methods.getStampImage(stamp.index).call((err, URL) => {
           if (err) {
             console.error(err)
