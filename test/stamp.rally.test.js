@@ -17,6 +17,7 @@ contract('StampRally', function(accounts) {
     let p4 = "pancake prickly pear"
     let p5 = "kangaroo rat"
 
+    let owner = accounts[0];
     let fiona = accounts[1];
 
     let u0 = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Gpa_bill_coyote_pups_3.jpg/1920px-Gpa_bill_coyote_pups_3.jpg";
@@ -59,6 +60,7 @@ contract('StampRally', function(accounts) {
 	it("should make a new stamp rally", async function() {
 	    assert.equal((await rally.numStamps()).toNumber(), numStamps, "NumStamps didn't match");
 	    assert.equal((await rally.name()), name, "Name didn't match");
+	    assert.equal((await rally.owner()), owner, "Owner didn't match");
 	});
     });
 
@@ -135,5 +137,35 @@ contract('StampRally', function(accounts) {
 	    assert.equal(false, await rally.userHasStamp(1, fiona), "Expected false");
 	});
 	   
+    });
+
+    describe("setStamp", async function() {
+	it("should allow a stamp to be reset", async function() {
+	    rally.setStamp(0, h0, u0, prompt0);
+	});
+	it("should only allow owner to set a stamp", async function() {
+	    await shouldFail.reverting(rally.setStamp(0, h0, u0, prompt0, {from: fiona}));
+	});
+    });
+
+    describe("transferOwnership", async function() {
+	it("should allow the owner to transferOwnership", async function() {
+	    rally.transferOwnership(fiona);
+	    assert.equal(await rally.pendingOwner(), fiona, "Unexpected pending owner");
+	});
+	it("should not allo non-owners to transferOwnership", async function() {
+	    await shouldFail.reverting(rally.transferOwnership(fiona, {from: fiona}));
+	});
+    });
+
+    describe("claimOwnership", async function() {
+	it("should allow the pending owner to claimOwnership", async function() {
+	    rally.transferOwnership(fiona);
+	    rally.claimOwnership({from: fiona});
+	    assert.equal(await rally.owner(), fiona, "Unexpected owner");
+	});
+	it("should not allow non-pending owners to claimOwnership", async function() {
+	    await shouldFail.reverting(rally.claimOwnership({from: fiona}));
+	});
     });
 });
