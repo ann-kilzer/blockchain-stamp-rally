@@ -4,6 +4,8 @@ pragma solidity 0.5.0;
 contract StampRally {
   uint8 public numStamps;
   string public name;
+  address public owner;
+  address public pendingOwner;
   
   struct StampKey {
     bytes32 hashedPassphrase;
@@ -36,17 +38,32 @@ contract StampRally {
     numStamps = _numStamps;
     stampKeys.length = numStamps;
     name = _name;
+    owner = msg.sender;
   }
 
   modifier validPosition(uint8 _position) {
     require(_position < numStamps); // in bounds
     _;
   }
+
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
+
+  function transferOwnership(address newOwner) public onlyOwner {
+    pendingOwner = newOwner;
+  }
+
+  function claimOwnership() public {
+    require(msg.sender == pendingOwner);
+    owner = pendingOwner;
+  }
   
   function setStamp(uint8 _position,
 		    bytes32 _hashedPassphrase,
 		    string memory _url,
-		    string memory _prompt) public validPosition(_position) {
+		    string memory _prompt) public validPosition(_position) onlyOwner {
     StampKey storage s = stampKeys[_position];
     s.hashedPassphrase = _hashedPassphrase;
     s.url = _url;
@@ -100,5 +117,4 @@ contract StampRally {
     RallyCard memory rc = cards[prc.id];
     return rc.stamps[_position];
   }
-  
 }
