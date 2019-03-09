@@ -94,7 +94,7 @@
       return {
         web3: null,
         contract: null,
-        emptyURL: "http://placekitten.com/200/200",
+        emptyURL: window.location.origin + "/BlankStamp.jpg",
         stamps: [],
         numStamps: 0,
         settingsPanel: false,
@@ -118,19 +118,20 @@
             url: null,
             collectForm: false,
             passphrase: "",
-            prompt: this.getPrompt(i),
+            prompt: "..."
           };
+          this.setPrompt(i),
           this.updateStamp(blankStamp);
           this.stamps.push(blankStamp);
         }
       },
-      getPrompt(i) {
+      setPrompt(i) {
         this.contract.methods.getStampPrompt(i).call((err, prompt) => { 
           if (err) {
             console.errror(err);
             return;
           }
-          if (prompt !== null) {
+          if (prompt !== "") {
             this.stamps[i].prompt = prompt;            
           }
         })
