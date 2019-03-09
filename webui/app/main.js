@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import App from './App'
-import router from './router'
-import Vuetify from 'vuetify'
-import colors from 'vuetify/es5/util/colors'
+import Vue from 'vue';
+import App from './App';
+import router from './router';
+import Vuetify from 'vuetify';
+import colors from 'vuetify/es5/util/colors';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 Vue.use(Vuetify, {
   theme: {
@@ -12,18 +12,19 @@ Vue.use(Vuetify, {
     secondary: colors.orange.lighten5,
     accent: colors.red.accent3
   }
-})
+});
 
+/* eslint-disable no-undef */
 let StampRallyJson = require('./StampRally.json');
+/* esline-enable no-undef */
 
-/* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    data () {
-      return {
-        json: StampRallyJson
-      }
-    },
-    router,
-    render: h => h(App)
-})
+  el: '#app',
+  data () {
+    return {
+      json: StampRallyJson
+    };
+  },
+  router,
+  render: h => h(App)
+});

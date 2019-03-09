@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
   files: {
     javascripts: {
@@ -21,4 +22,4 @@ module.exports = {
       presets: ['es2015']
     }
   },
-}
+};
