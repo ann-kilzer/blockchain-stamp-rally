@@ -176,6 +176,7 @@ export default {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
     setupPage() {
+      this.stamps = [];
       for (var i = 0; i < this.numStamps; i++) {
         let blankStamp = {
           index: i,
@@ -247,9 +248,7 @@ export default {
 
         if (URL != '') {
           stamp.url = URL;
-        } else {
-          console.warn('No stamp found');
-        }  
+        }
       });
     },
     async linkContract() {
