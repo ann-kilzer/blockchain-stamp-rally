@@ -155,7 +155,7 @@ export default {
       stamps: [],
       numStamps: 0,
       settingsPanel: false,
-      address: '0x5f5947E7fce03c38dFe4069a687aFAfE654449bE',
+      address: '',
       unlinked: true,
       stampRally: null,
       title: 'Blockchain Stamp Rally'
@@ -164,10 +164,17 @@ export default {
   beforeMount() {
     this.setupWeb3();
   },
-  created() {
-
+  async created() {
+    this.address = this.readCookie('address');
+    await this.sleep(100); // TODO: timeouts are brittle. Figure out how to ensure web3 is properly initialized
+    if (this.address !== '') {
+      this.linkContract();
+    }
   },
   methods: {
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
     setupPage() {
       for (var i = 0; i < this.numStamps; i++) {
         let blankStamp = {
@@ -275,9 +282,35 @@ export default {
             this.title = name;
           }
         });
+
+        this.setCookie();
+
       } catch (e) {
         console.error(e);
       }
+    },
+    readCookie(name) {
+      // modified from https://www.w3schools.com/js/js_cookies.asp
+      const nameEq = name + '=';
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        // remove leading whitespace
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(nameEq) == 0) {
+          return c.substring(nameEq.length, c.length);
+        }
+      }
+      return '';
+    },
+    setCookie() {
+      // Set a cookie so we can remember this contract later
+      let d = new Date();
+      d.setMonth(d.getMonth() + 3); 
+      document.cookie = 'address=' + this.address + '; expires=' + d.toUTCString();
     },
     setupWeb3() {
       if (typeof window.web3 !== 'undefined') {
