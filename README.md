@@ -45,12 +45,19 @@ I recommend deploying on a test network such as Rinkeby. That way you get a publ
 - Look for the contract address `[Contract 0xabcd... Created]` and click on it to view the contract page.
 - Copy the contract address to a safe place. You'll need it to set up stamps, and to give to your players.
 
+### Creating images
+I recommend copying the BlankStamp.jpg image and adding your own drawings in the center, using photo editing software like Photoshop or the Gimp. Dimensions are 1000x1000px.
+
+Here's an example:
+
+![duck stamp](https://github.com/ann-kilzer/blockchain-stamp-rally/sample-images/RubberDuck.jpg)
+
 ### Saving Images
 
 There are a number of options for where to save images for your own stamp rally.
 
-1. Locally.
- - Pros: Simple and free
+1. Fork the repo and add in your own images.
+ - Pros: Simple and free. Same origin, no [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues.
  - Cons: No element of surprise for players to discover stamps
 
 
