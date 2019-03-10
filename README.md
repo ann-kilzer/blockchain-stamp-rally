@@ -12,7 +12,7 @@ Passphrases could be code words, solutions to puzzles, or revealed via locations
 Prerequisites:
 - [yarn](https://yarnpkg.com/en/) v1.12.3
 - web3 enabled browser such as [Mist](https://github.com/ethereum/mist/releases) or [Metamask](https://metamask.io/)
-- An address of the deployed instance of the stamp rally contract (See below for how game managers can set up a stamp rally)
+- An address of the deployed instance of the stamp rally contract (See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers))
 - Some test Ether
   - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
 
