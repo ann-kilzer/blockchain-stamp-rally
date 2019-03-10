@@ -50,7 +50,7 @@ I recommend copying the BlankStamp.jpg image and adding your own drawings in the
 
 Here's an example:
 
-![duck stamp](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/master/sample-images/RubberDuck.jpg?raw=true | width=150)
+![duck stamp](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/master/sample-images/RubberDuck.jpg?raw=true width="100" height="100")
 
 ### Saving Images
 
