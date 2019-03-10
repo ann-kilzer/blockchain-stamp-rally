@@ -34,9 +34,9 @@ I recommend deploying on a test network such as Rinkeby. That way you get a publ
 
 ### Contract Deployment
 
-1. Navigate to https://remix.ethereum.org in a web3 enabled browser. Make sure your browser is connected to the correct network -- in this case, Rinkeby.
-- Click the plus icon to add a new file. Copy the contents of [StampRally.sol](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/master/contracts/StampRally.sol) into the text area.
-- Select the 0.5.0 version of the compiler and wait for it to compile.
+1 Navigate to https://remix.ethereum.org in a web3 enabled browser. Make sure your browser is connected to the correct network -- in this case, Rinkeby.
+2 Click the plus icon to add a new file. Copy the contents of [StampRally.sol](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/master/contracts/StampRally.sol) into the text area.
+3 Select the 0.5.0 version of the compiler and wait for it to compile.
 - Click the **Run** tab.
 - Select which account you wish to deploy from. This will become the contract owner, and it will be the only account able to manage the game (unless you transfer ownership).
 - Choose the number of stamps available in your rally, as well as the rally name.
