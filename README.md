@@ -18,8 +18,10 @@ Prerequisites:
 
 Clone this git repo and navigate to the webui directory and install dependencies.
 
-`cd webui`
-`yarn install`
+```
+cd webui
+yarn install
+```
 
 Now you can fire up the app with:
 `yarn start`
@@ -108,12 +110,18 @@ There are a number of options for where to save images for your own stamp rally.
 </CORSConfiguration>
 ```
 6. Upload your images to S3 using the upload button. You can put all your images in the same bucket. To keep stamps a surprise, give images names that aren't easy for players to guess.
+7. Keep track of the Object URL for each stamp. 
 
 
 ### Setting up stamps
 
-*TODO*
-
+1. Decide which images and prompts (hints or instructions) to correspond to each stamp index. Indexes start at 0 and go to N-1, for a game with N stamps.
+2. Go back to https://remix.ethereum.org with the contract loaded. You should see your deployed contract in the lower right. Or you can add the saved address into the "At Address" field.
+3. Make sure that your web3 enabled browser has the contract owner (the same address you deployed from) as the selected signer.
+4. For each index, call the following two methods in order:
+  - generateHash with the password, to create the hashed passphrase
+  - setStamp using the index, the hash generated in the previous step, the url, and the prompt
+5. Give the contract address out to your players and let the games begin!
 
 
 \* Presumably these recommendations are to keep malicious actors from eating up your AWS budget by slamming your public S3 urls... so be cautious about where you share your image links, and please set up budget monitoring.

@@ -207,14 +207,19 @@ export default {
     collectStamp(stamp) {
       stamp.collectForm = true;
     },
+    async getActiveAccount() {
+      let account;
+      await this.web3.eth.getAccounts().then((response) => { 
+        account = response[0];
+      });
+      return account;
+    },
     async submitPassphrase(stamp) {
+      console.log(stamp.passphrase);
       let that = this;
       stamp.collectForm = false;
-      let sender;
-      await this.web3.eth.getAccounts().then((response) => { 
-        sender = response[0];
-      });
-        
+
+      let sender = this.getActiveAccount();
       if (sender === undefined) {
         console.warn('No sender. Unable to collect stamp');
         return;
@@ -229,7 +234,7 @@ export default {
               return;
             }
 
-            console.log(txHash);
+            console.log('Transaction hash:', txHash);
           }).then(function() {
           that.updateStamp(stamp);
         });
@@ -245,8 +250,8 @@ export default {
           console.error(err);
           return;
         }
-
         if (URL != '') {
+          console.log('Updating stamp');
           stamp.url = URL;
         }
       });
