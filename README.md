@@ -1,6 +1,6 @@
 # Blockchain Stamp Rally
 
-Stamp Rallies are a scavenger hunt type game popular in Japan, usually centered around railway travel or walking. A card contains a number of blank spaces with destinations. At each destination, is a table with a stamp and ink pad to mark the sheet. Players may redeem a fully stamped sheet for a prize, or an entry into a drawing.
+[Stamp Rallies](https://www.tokyoweekender.com/2009/08/stamp-rallies/) are a scavenger hunt type game popular in Japan, usually centered around railway travel or walking. A card contains a number of blank spaces with destinations. At each destination, is a table with a stamp and ink pad to mark the sheet. Players may redeem a fully stamped sheet for a prize, or an entry into a drawing.
 
 I created this game to make a virtual stamp rally for my coworkers. Rather than traveling to a location, the stamp images are only revealed after entering a password, revealed upon completing a challenge.
 
