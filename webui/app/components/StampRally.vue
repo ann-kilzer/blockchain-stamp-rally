@@ -219,7 +219,7 @@ export default {
       let that = this;
       stamp.collectForm = false;
 
-      let sender = this.getActiveAccount();
+      let sender = await this.getActiveAccount();
       if (sender === undefined) {
         console.warn('No sender. Unable to collect stamp');
         return;
@@ -244,14 +244,14 @@ export default {
 
       stamp.passphrase = '';
     },
-    updateStamp(stamp) {
-      this.contract.methods.getStampImage(stamp.index).call((err, URL) => {
+    async updateStamp(stamp) {
+      let caller = await this.getActiveAccount();
+      this.contract.methods.getStampImage(stamp.index).call({from: caller}, (err, URL) => {
         if (err) {
           console.error(err);
           return;
         }
         if (URL != '') {
-          console.log('Updating stamp');
           stamp.url = URL;
         }
       });
