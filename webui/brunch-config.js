@@ -13,7 +13,7 @@ module.exports = {
     stylesheets: {
       joinTo: {
         'css/app.css' : ['app/css/styles.css'],
-        'css/vendor.css' : /^node_modules/
+        'css/vendor.css' : /^node_modules/,
       }
     }
   },
@@ -21,5 +21,12 @@ module.exports = {
     babel: {
       presets: ['es2015']
     }
+  },
+  npm: {
+    enabled: true,
+    styles: {
+      'vuetify': ['dist/vuetify.css'],
+      'typeface-roboto': ['index.css']
+    },
   },
 };
