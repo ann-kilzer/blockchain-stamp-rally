@@ -1,4 +1,4 @@
-pragma solidity 0.5.0;
+pragma solidity 0.5.7;
 
 
 contract StampRally {
@@ -51,6 +51,12 @@ contract StampRally {
     _;
   }
 
+  event StampCollected(
+        address indexed _from,
+        uint8 indexed _position,
+        string _imageURL
+    );
+
   function transferOwnership(address newOwner) public onlyOwner {
     pendingOwner = newOwner;
   }
@@ -91,6 +97,7 @@ contract StampRally {
     if (hash == sk.hashedPassphrase) {
       RallyCard storage rc = cards[prc.id];
       rc.stamps[_position] = true;
+      emit StampCollected(msg.sender, _position, sk.url);
     }
   }
 
