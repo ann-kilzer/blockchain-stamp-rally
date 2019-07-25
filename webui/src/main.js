@@ -18,11 +18,10 @@ const StampRallyJson = require('./StampRally.json');
 /* esline-enable no-undef */
 
 new Vue({
-  el: '#app',
   data() {
     return {
       json: StampRallyJson,
     };
   },
   render: h => h(App),
-});
+}).$mount('#app');
