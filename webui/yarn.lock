@@ -8080,6 +8080,11 @@ vue@^2.6.10:
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
+vuetify@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.0.tgz#58c72247251412b5e804c8c38a0e12bcb736d949"
+  integrity sha512-AbtHkWdvxF3QrR/xCpu2XL+KJ59Z7/KQQmbV4gPn6Q3VlQ5tXaGR4AJO1uNrvGCTlLlQxWHGcwMGOiHU7aIlqg==
+
 watchpack@^1.5.0:
   version "1.6.0"
   resolved "https://registry.npm.taobao.org/watchpack/download/watchpack-1.6.0.tgz#4bc12c2ebe8aa277a71f1d3f14d685c7b446cd00"

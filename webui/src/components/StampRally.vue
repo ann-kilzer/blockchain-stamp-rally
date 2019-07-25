@@ -41,8 +41,8 @@
                 required
                 class="mb-2"
               />
-              <v-btn 
-                color="accent" 
+              <v-btn
+                color="accent"
                 :disabled="address ==''"
                 @click="linkContract()"
               >
@@ -60,7 +60,7 @@
           class="primary lighten-3"
         >
           <div class="title font-weight-light">
-            No Contract linked, or contract has no stamps to collect. 
+            No Contract linked, or contract has no stamps to collect.
             Please set a valid contract address under settings.
           </div>
         </v-container>
@@ -87,15 +87,15 @@
                     justify-center
                   >
                     <v-img :src="getURL(stamp)" />
-                    <v-flex 
-                      class="mt-3 text-xs-center" 
+                    <v-flex
+                      class="mt-3 text-xs-center"
                     >
                       <span>{{ stamp.prompt }}</span>
                     </v-flex>
-                    <v-btn 
-                      v-if="!stamp.collectForm && stamp.url == null" 
-                      color="primary" 
-                      class="mt-3" 
+                    <v-btn
+                      v-if="!stamp.collectForm && stamp.url == null"
+                      color="primary"
+                      class="mt-3"
                       block
                       @click="collectStamp(stamp)"
                     >
@@ -107,15 +107,15 @@
                       class="justify-center"
                     >
                       <v-form>
-                        <v-text-field 
-                          v-model="stamp.passphrase" 
+                        <v-text-field
+                          v-model="stamp.passphrase"
                           label="Passphrase"
                           :rules="[() => !!stamp.passphrase || 'Passphrase is required']"
                           required
                           class="mb-2"
                         />
-                        <v-btn 
-                          color="accent" 
+                        <v-btn
+                          color="accent"
                           :disabled="stamp.passphrase ==''"
                           @click="submitPassphrase(stamp)"
                         >
@@ -151,14 +151,14 @@ export default {
     return {
       web3: null,
       contract: null,
-      emptyURL: window.location.origin + '/BlankStamp.jpg',
+      emptyURL: `${window.location.origin}/BlankStamp.jpg`,
       stamps: [],
       numStamps: 0,
       settingsPanel: false,
       address: '',
       unlinked: true,
       stampRally: null,
-      title: 'Blockchain Stamp Rally'
+      title: 'Blockchain Stamp Rally',
     };
   },
   beforeMount() {
@@ -177,13 +177,13 @@ export default {
     },
     setupPage() {
       this.stamps = [];
-      for (var i = 0; i < this.numStamps; i++) {
-        let blankStamp = {
+      for (let i = 0; i < this.numStamps; i++) {
+        const blankStamp = {
           index: i,
           url: null,
           collectForm: false,
           passphrase: '',
-          prompt: '...'
+          prompt: '...',
         };
         this.setPrompt(i),
         this.updateStamp(blankStamp);
@@ -191,13 +191,13 @@ export default {
       }
     },
     setPrompt(i) {
-      this.contract.methods.getStampPrompt(i).call((err, prompt) => { 
+      this.contract.methods.getStampPrompt(i).call((err, prompt) => {
         if (err) {
           console.error(err);
           return;
         }
         if (prompt !== '') {
-          this.stamps[i].prompt = prompt;            
+          this.stamps[i].prompt = prompt;
         }
       });
     },
@@ -209,17 +209,17 @@ export default {
     },
     async getActiveAccount() {
       let account;
-      await this.web3.eth.getAccounts().then((response) => { 
+      await this.web3.eth.getAccounts().then((response) => {
         account = response[0];
       });
       return account;
     },
     async submitPassphrase(stamp) {
       console.log(stamp.passphrase);
-      let that = this;
+      const that = this;
       stamp.collectForm = false;
 
-      let sender = await this.getActiveAccount();
+      const sender = await this.getActiveAccount();
       if (sender === undefined) {
         console.warn('No sender. Unable to collect stamp');
         return;
@@ -227,7 +227,7 @@ export default {
 
       try {
         this.contract.methods.collectStamp(stamp.index, stamp.passphrase).send(
-          {from: sender},
+          { from: sender },
           (err, txHash) => {
             if (err) {
               console.error(err);
@@ -235,18 +235,19 @@ export default {
             }
 
             console.log('Transaction hash:', txHash);
-          }).then(function() {
+          },
+        ).then(() => {
           that.updateStamp(stamp);
         });
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
 
       stamp.passphrase = '';
     },
     async updateStamp(stamp) {
-      let caller = await this.getActiveAccount();
-      this.contract.methods.getStampImage(stamp.index).call({from: caller}, (err, URL) => {
+      const caller = await this.getActiveAccount();
+      this.contract.methods.getStampImage(stamp.index).call({ from: caller }, (err, URL) => {
         if (err) {
           console.error(err);
           return;
@@ -260,7 +261,7 @@ export default {
       try {
         this.contract = new this.web3.eth.Contract(this.$root.json.abi, this.address);
 
-        this.contract.methods.numStamps().call((err, numStamps) => { 
+        this.contract.methods.numStamps().call((err, numStamps) => {
           if (err) {
             console.error(err);
             return;
@@ -288,17 +289,16 @@ export default {
         });
 
         this.setCookie();
-
       } catch (e) {
         console.error(e);
       }
     },
     readCookie(name) {
       // modified from https://www.w3schools.com/js/js_cookies.asp
-      const nameEq = name + '=';
+      const nameEq = `${name}=`;
       const decodedCookie = decodeURIComponent(document.cookie);
       const ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
+      for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         // remove leading whitespace
         while (c.charAt(0) == ' ') {
@@ -312,9 +312,9 @@ export default {
     },
     setCookie() {
       // Set a cookie so we can remember this contract later
-      let d = new Date();
-      d.setMonth(d.getMonth() + 3); 
-      document.cookie = 'address=' + this.address + '; expires=' + d.toUTCString();
+      const d = new Date();
+      d.setMonth(d.getMonth() + 3);
+      document.cookie = `address=${this.address}; expires=${d.toUTCString()}`;
     },
     setupWeb3() {
       if (typeof window.web3 !== 'undefined') {
@@ -324,7 +324,7 @@ export default {
         console.log('No web3 found. Falling back to Mist 🌫️ or MetaMask 🦊');
         this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
       }
-    }
-  }
+    },
+  },
 };
 </script>
