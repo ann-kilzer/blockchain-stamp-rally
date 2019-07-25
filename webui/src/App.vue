@@ -1,7 +1,7 @@
 <template>
-  <v-app id="app">
+  <div id="app">
     <stamp-rally />
-  </v-app>
+  </div>
 </template>
 
 
