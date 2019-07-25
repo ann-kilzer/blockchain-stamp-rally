@@ -143,6 +143,8 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
 import Web3 from 'web3';
 
 export default {
@@ -177,7 +179,7 @@ export default {
     },
     setupPage() {
       this.stamps = [];
-      for (let i = 0; i < this.numStamps; i++) {
+      for (let i = 0; i < this.numStamps; i += 1) {
         const blankStamp = {
           index: i,
           url: null,
@@ -185,7 +187,7 @@ export default {
           passphrase: '',
           prompt: '...',
         };
-        this.setPrompt(i),
+        this.setPrompt(i);
         this.updateStamp(blankStamp);
         this.stamps.push(blankStamp);
       }
@@ -252,7 +254,7 @@ export default {
           console.error(err);
           return;
         }
-        if (URL != '') {
+        if (URL !== '') {
           stamp.url = URL;
         }
       });
@@ -266,7 +268,7 @@ export default {
             console.error(err);
             return;
           }
-          if (numStamps == null) {
+          if (numStamps === null) {
             console.error('Invalid response to numStamps()');
           } else {
             this.numStamps = numStamps;
@@ -298,13 +300,13 @@ export default {
       const nameEq = `${name}=`;
       const decodedCookie = decodeURIComponent(document.cookie);
       const ca = decodedCookie.split(';');
-      for (let i = 0; i < ca.length; i++) {
+      for (let i = 0; i < ca.length; i += 1) {
         let c = ca[i];
         // remove leading whitespace
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
           c = c.substring(1);
         }
-        if (c.indexOf(nameEq) == 0) {
+        if (c.indexOf(nameEq) === 0) {
           return c.substring(nameEq.length, c.length);
         }
       }
