@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import colors from 'vuetify/es5/util/colors';
 import App from './App.vue';
+import 'vuetify/src/stylus/app.styl';
 
 Vue.config.productionTip = false;
 
