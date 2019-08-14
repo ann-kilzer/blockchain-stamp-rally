@@ -33,17 +33,20 @@
         </v-toolbar>
         <v-expand-transition>
           <v-container v-if="settingsPanel">
-            <v-form>
+            <v-form
+              v-model="validAddress"
+              @submit.prevent
+              >
               <v-text-field
                 v-model="address"
                 label="Contract Address"
-                :rules="[() => !!address || 'Address is required']"
+                :rules="addressRules"
                 required
                 class="mb-2"
               />
               <v-btn
                 color="accent"
-                :disabled="address ==''"
+                :disabled="!validAddress"
                 @click="linkContract()"
               >
                 Link
@@ -161,6 +164,11 @@ export default {
       unlinked: true,
       stampRally: null,
       title: 'Blockchain Stamp Rally',
+      validAddress: false,
+      addressRules: [
+        addr => !!addr || 'Address is required',
+        addr => Web3.utils.isAddress(addr) || 'Invalid Contract Address',
+      ],
     };
   },
   beforeMount() {
