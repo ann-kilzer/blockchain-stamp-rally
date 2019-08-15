@@ -58,19 +58,6 @@ contract StampRally {
     _;
   }
 
-  /// @notice Allows a game manager to transfer ownership
-  /// @dev Note that ownership won't transfer until the newOwner calls claimOwnership
-  /// @param newOwner The new game manager
-  function transferOwnership(address newOwner) public onlyOwner {
-    pendingOwner = newOwner;
-  }
-
-  /// @notice Allows the pending game manager to claim ownership 
-  function claimOwnership() public {
-    require(msg.sender == pendingOwner);
-    owner = pendingOwner;
-  }
-
   /// @notice Allows the game manager to set up a stamp
   /// @param _position The index of the stamp
   /// @param _hashedPassphrase The hashed passphrase from a call to generateHash
@@ -148,5 +135,18 @@ contract StampRally {
     }
     RallyCard memory rc = cards[prc.id];
     return rc.stamps[_position];
+  }
+
+  /// @notice Allows a game manager to transfer ownership
+  /// @dev Note that ownership won't transfer until the newOwner calls claimOwnership
+  /// @param newOwner The new game manager
+  function transferOwnership(address newOwner) public onlyOwner {
+    pendingOwner = newOwner;
+  }
+
+  /// @notice Allows the pending game manager to claim ownership 
+  function claimOwnership() public {
+    require(msg.sender == pendingOwner);
+    owner = pendingOwner;
   }
 }
