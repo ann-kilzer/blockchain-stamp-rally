@@ -1,9 +1,7 @@
-pragma solidity 0.5.0;
+pragma solidity ^0.5.0;
 
 /// @title Stamp Rally
 /// @author Ann Marie Kilzer
-/// @notice You can use this contract for only the most basic simulation
-/// @dev All function calls are currently implemented without side effects
 contract StampRally {
   uint8 public numStamps;
   string public name;
