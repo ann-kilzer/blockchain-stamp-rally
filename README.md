@@ -24,9 +24,9 @@ yarn install
 ```
 
 Now you can fire up the app with:
-`yarn start`
+`yarn serve`
 
-Navigate to http://localhost:3333 in your web3 enabled browser to start the game. Use the gear icon to link the address of the Stamp Rally Contract.
+Navigate to http://localhost:8080 in your web3 enabled browser to start the game. Use the gear icon to link the address of the Stamp Rally Contract.
 
 Make sure to use the same Ethereum Address to play the game every time, if you want the images to show up on the same game card.
 
