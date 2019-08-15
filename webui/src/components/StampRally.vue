@@ -156,7 +156,7 @@ export default {
     return {
       web3: null,
       contract: null,
-      emptyURL: `${window.location.origin}/BlankStamp.jpg`,
+      emptyURL: `${window.location.href.replace('?', '')}/BlankStamp.jpg`,
       stamps: [],
       numStamps: 0,
       settingsPanel: false,
@@ -176,7 +176,8 @@ export default {
   },
   async created() {
     this.address = this.readCookie('address');
-    await this.sleep(100); // TODO: timeouts are brittle. Figure out how to ensure web3 is properly initialized
+    // TODO: timeouts are brittle. Figure out how to ensure web3 is properly initialized
+    await this.sleep(100);
     if (this.address !== '') {
       this.linkContract();
     }
