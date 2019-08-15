@@ -109,7 +109,7 @@
                       v-else-if="stamp.url== null"
                       class="justify-center"
                     >
-                      <v-form>
+                      <v-form @submit.prevent>
                         <v-text-field
                           v-model="stamp.passphrase"
                           label="Passphrase"
