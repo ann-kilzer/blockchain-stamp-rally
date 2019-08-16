@@ -33,17 +33,20 @@
         </v-toolbar>
         <v-expand-transition>
           <v-container v-if="settingsPanel">
-            <v-form>
+            <v-form
+              v-model="validAddress"
+              @submit.prevent
+              >
               <v-text-field
                 v-model="address"
                 label="Contract Address"
-                :rules="[() => !!address || 'Address is required']"
+                :rules="addressRules"
                 required
                 class="mb-2"
               />
               <v-btn
                 color="accent"
-                :disabled="address ==''"
+                :disabled="!validAddress"
                 @click="linkContract()"
               >
                 Link
@@ -106,7 +109,7 @@
                       v-else-if="stamp.url== null"
                       class="justify-center"
                     >
-                      <v-form>
+                      <v-form @submit.prevent>
                         <v-text-field
                           v-model="stamp.passphrase"
                           label="Passphrase"
@@ -153,7 +156,7 @@ export default {
     return {
       web3: null,
       contract: null,
-      emptyURL: `${window.location.origin}/BlankStamp.jpg`,
+      emptyURL: `${window.location.href.replace('?', '')}/BlankStamp.jpg`,
       stamps: [],
       numStamps: 0,
       settingsPanel: false,
@@ -161,6 +164,11 @@ export default {
       unlinked: true,
       stampRally: null,
       title: 'Blockchain Stamp Rally',
+      validAddress: false,
+      addressRules: [
+        addr => !!addr || 'Address is required',
+        addr => Web3.utils.isAddress(addr) || 'Invalid Contract Address',
+      ],
     };
   },
   beforeMount() {
@@ -168,7 +176,8 @@ export default {
   },
   async created() {
     this.address = this.readCookie('address');
-    await this.sleep(100); // TODO: timeouts are brittle. Figure out how to ensure web3 is properly initialized
+    // TODO: timeouts are brittle. Figure out how to ensure web3 is properly initialized
+    await this.sleep(100);
     if (this.address !== '') {
       this.linkContract();
     }
