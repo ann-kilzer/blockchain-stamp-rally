@@ -1,3 +1,23 @@
+# 🎶 Blockchain Build-along 🎶
+
+### You're on the build-along branch!
+
+This is a special tutorial for learning Solidity basics. If you are not part of a workshop, you might want to check out the master branch.
+
+## Prerequisites
+
+- Install the web3 plugin [Metamask](https://metamask.io/)
+- Get some test Ethereum
+  - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
+
+## Open the Remix IDE
+- Open [remix](remix.ethereum.org) in a browser tab, and click "Solidity" under environments.
+- Click the Files icon, then click the + to open a new file. Name it StampRally.sol.
+- Copy the code from StampRally.sol into a the Remix browser.
+- You're now ready to write code and interact with the smart contract.
+- Fill in the TODOs
+
+
 # Blockchain Stamp Rally
 
 [Stamp Rallies](https://www.tokyoweekender.com/2009/08/stamp-rallies/) are a scavenger hunt type game popular in Japan, usually centered around railway travel or walking. A card contains a number of blank spaces with destinations. At each destination, is a table with a stamp and ink pad to mark the sheet. Players may redeem a fully stamped sheet for a prize, or an entry into a drawing.
@@ -5,10 +25,6 @@
 I created this game to make a virtual stamp rally for my coworkers. Rather than traveling to a location, the stamp images are only revealed after entering a password, revealed upon completing a challenge.
 
 Passphrases could be code words, solutions to puzzles, or revealed via locations in virtual worlds. Using Blockchain as the data store keeps a decentralized source of truth.
-
-## Build-along
-
-**Select the "Build-along" branch if you are following along in a tutorial**
 
 ## How to play
 
