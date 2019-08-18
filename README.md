@@ -6,15 +6,28 @@ I created this game to make a virtual stamp rally for my coworkers. Rather than 
 
 Passphrases could be code words, solutions to puzzles, or revealed via locations in virtual worlds. Using Blockchain as the data store keeps a decentralized source of truth.
 
+## Build-along
+
+**Select the "Build-along" branch if you are following along in a tutorial**
 
 ## How to play
 
-Prerequisites:
-- [yarn](https://yarnpkg.com/en/) v1.12.3
-- web3 enabled browser such as [Mist](https://github.com/ethereum/mist/releases) or [Metamask](https://metamask.io/)
-- An address of the deployed instance of the stamp rally contract (See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers))
+- web3 plugin [Metamask](https://metamask.io/)
+- An address of the deployed instance of the stamp rally contract
+  - TODO: Sample address
+  - See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers))
 - Some test Ether
   - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
+
+Visit [this page](https://ann-kilzer.github.io/blockchain-stamp-rally/?) to interact with a deployed version of the frontend.  Use the gear icon to link the address of the Stamp Rally Contract.
+
+Make sure to use the same Ethereum Address to play the game every time, if you want the images to show up on the same game card.
+
+## How to run from source:
+
+Prerequisites:
+
+ - [yarn](https://yarnpkg.com/en/)
 
 Clone this git repo and navigate to the webui directory and install dependencies.
 
@@ -26,9 +39,7 @@ yarn install
 Now you can fire up the app with:
 `yarn serve`
 
-Navigate to http://localhost:8080 in your web3 enabled browser to start the game. Use the gear icon to link the address of the Stamp Rally Contract.
-
-Make sure to use the same Ethereum Address to play the game every time, if you want the images to show up on the same game card.
+Navigate to http://localhost:8080 in your web3 enabled browser to start the game.
 
 ## How to set up a Stamp Rally (For game managers)
 
@@ -110,7 +121,7 @@ There are a number of options for where to save images for your own stamp rally.
 </CORSConfiguration>
 ```
 6. Upload your images to S3 using the upload button. You can put all your images in the same bucket. To keep stamps a surprise, give images names that aren't easy for players to guess.
-7. Keep track of the Object URL for each stamp. 
+7. Keep track of the Object URL for each stamp.
 
 
 ### Setting up stamps
