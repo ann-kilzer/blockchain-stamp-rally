@@ -8,7 +8,7 @@ Passphrases could be code words, solutions to puzzles, or revealed via locations
 
 ## Build-along
 
-**Select the "Build-along" branch if you are following along in a tutorial**
+**Select the ["Build-along"](https://github.com/ann-kilzer/blockchain-stamp-rally/tree/build-along) branch if you are following along in a tutorial**
 
 ## How to play
 
