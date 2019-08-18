@@ -2,7 +2,7 @@
 
 ### You're on the build-along branch!
 
-This is a special tutorial for learning Solidity basics. If you are not part of a workshop, you might want to check out the master branch.
+This is a special tutorial for learning Solidity basics. If you are not part of a workshop, you might want to return to the [master](https://github.com/ann-kilzer/blockchain-stamp-rally) branch.
 
 ## Prerequisites
 
@@ -13,9 +13,24 @@ This is a special tutorial for learning Solidity basics. If you are not part of 
 ## Open the Remix IDE
 - Open [remix](remix.ethereum.org) in a browser tab, and click "Solidity" under environments.
 - Click the Files icon, then click the + to open a new file. Name it StampRally.sol.
-- Copy the code from StampRally.sol into a the Remix browser.
+- Copy the code from [StampRally.sol](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/build-along/contracts/StampRally.sol) into a the Remix browser.
 - You're now ready to write code and interact with the smart contract.
 - Fill in the TODOs
+
+## Checking your work
+
+- Click the "Compile" tab to build your code
+- Click the "Deploy and Run Transactions" tab
+
+## Deploying a contract
+
+1. Under Environments, click "Injected Web3"
+2. Select which account you wish to deploy from. This will become the contract owner, and it will be the only account able to manage the game (unless you transfer ownership).
+3. Choose the number of stamps available in your rally, as well as the rally name.
+3. Click Deploy. You will see a popup asking for you to sign and submit the transaction. Click to accept.
+4. In the bottom drawer you will see a link to view the transaction on etherscan.io. Click this, and wait until you see TxReceipt Status:Success. This means your contract has been deployed and mined into a block.
+5. Look for the contract address `[Contract 0xabcd... Created]` and click on it to view the contract page.
+6. Copy the contract address to a safe place. You'll need it to set up stamps, and to give to your players
 
 
 # Blockchain Stamp Rally
