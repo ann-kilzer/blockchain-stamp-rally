@@ -6,23 +6,29 @@ This is a special tutorial for learning Solidity basics. If you are not part of 
 
 ## Prerequisites
 
-- Install the web3 plugin [Metamask](https://metamask.io/)
+- [Chrome](https://www.google.com/chrome/) or [Firefox](https://www.mozilla.org/en-US/firefox/new/) Web Browser
+- Install the web3 plugin [MetaMask](https://metamask.io/)
+  - Create a New Wallet and Seed Phrase
+  - Follow the instructions to set up a wallet
 - Get some test Ethereum
-  - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
+  - Open up MetaMask
+  - Make sure you have the "Rinkeby" network selected. This is a test network that lets people experiment with using Ethereum for free. It is different than "Mainnet" or real Ethereum, which has a [fluctuating price.](https://ethereumprice.org/)
+  - Copy your account address from MetaMask
+  - Visit this [Rinkeby Test ETH faucet](https://faucet.rinkeby.io/) and follow the directions to get test Ethereum.
 
 ## Open the Remix IDE
 - Open [remix](remix.ethereum.org) in a browser tab, and click "Solidity" under environments.
-- Click the Files icon, then click the + to open a new file. Name it StampRally.sol.
+- Click the "File Explorer" icon (first from top), then click the + to open a new file. Name it StampRally.sol.
 - Copy the code from [StampRally.sol](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/build-along/contracts/StampRally.sol) into a the Remix browser.
 - You're now ready to write code and interact with the smart contract.
-- Fill in the TODOs
+- Fill in the TODOs in the code.
 
 ## Checking your work
 
-- Click the "Compile" tab to build your code
-- Click the "Deploy and Run Transactions" tab
+- Click the "Compile" tab (second from top) to build your code
+- Click the "Deploy and Run Transactions" tab (third from top)
 
-## Deploying a contract
+### Deploying a contract
 
 1. Under Environments, click "Injected Web3"
 2. Select which account you wish to deploy from. This will become the contract owner, and it will be the only account able to manage the game (unless you transfer ownership).
@@ -32,6 +38,9 @@ This is a special tutorial for learning Solidity basics. If you are not part of 
 5. Look for the contract address `[Contract 0xabcd... Created]` and click on it to view the contract page.
 6. Copy the contract address to a safe place. You'll need it to set up stamps, and to give to your players
 
+### Running a command
+
+1. Make sure you are on the "Deploy and Run Transactions" tab
 
 # Blockchain Stamp Rally
 
@@ -45,7 +54,7 @@ Passphrases could be code words, solutions to puzzles, or revealed via locations
 
 - web3 plugin [Metamask](https://metamask.io/)
 - An address of the deployed instance of the stamp rally contract
-  - TODO: Sample address
+  - A Sample Contract is at [0x46035fA4922F006EE4eCde4BD70090811cB19a23](https://rinkeby.etherscan.io/address/0x46035fa4922f006ee4ecde4bd70090811cb19a23) on Rinkeby. The first password is "octopus".
   - See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers))
 - Some test Ether
   - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
