@@ -55,7 +55,7 @@ Passphrases could be code words, solutions to puzzles, or revealed via locations
 - web3 plugin [Metamask](https://metamask.io/)
 - An address of the deployed instance of the stamp rally contract
   - A Sample Contract is at [0x46035fA4922F006EE4eCde4BD70090811cB19a23](https://rinkeby.etherscan.io/address/0x46035fa4922f006ee4ecde4bd70090811cb19a23) on Rinkeby. The first password is "octopus".
-  - See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers))
+  - See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers)
 - Some test Ether
   - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
 
