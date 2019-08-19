@@ -41,6 +41,18 @@ This is a special tutorial for learning Solidity basics. If you are not part of 
 ### Running a command
 
 1. Make sure you are on the "Deploy and Run Transactions" tab
+2. Click on a deployed contract
+3. Click on a method and enter parameters
+4. Click call for view (read-only) methods, or transact for write methods (which require signing)
+
+### Interacting with the Web3 frontend
+
+- Visit [this page](https://ann-kilzer.github.io/blockchain-stamp-rally/?)
+- Make sure MetaMask is set to Rinkeby.
+- Click on the gear and enter the following address: [0x46035fA4922F006EE4eCde4BD70090811cB19a23](https://rinkeby.etherscan.io/address/0x46035fa4922f006ee4ecde4bd70090811cb19a23).
+- Click LINK
+- The first password is "octopus". Try entering it, signing the MetaMask transaction. Wait a few moments for the image to appear!
+- You can also try deploying your own contract instance to Rinkeby. See steps below for setting up your own Stamp Rally.
 
 # Blockchain Stamp Rally
 
