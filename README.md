@@ -136,13 +136,18 @@ There are a number of options for where to save images for your own stamp rally.
  - Pros: Simple and free. Same origin, no [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues.
  - Cons: No element of surprise for players to discover stamps
 
+2. Another GitHub repo
+ - Pros: Free, easy
+ - Cons: Easy for players to discover all the stamps
 
-2. Your own website:
+ Example: https://github.com/ann-kilzer/stamp-city
+
+3. Your own website:
  - Pros: Ability to hide stamps
  - Cons: CORS configuration is a challenge. Cost of hosting
 
 
-3. Amazon S3
+4. Amazon S3
  - Pros: Ability to hide stamps
  - Cons: CORS configuration is a challenge. Cost of hosting. I recommend not leaking the image URLs, as Amazon discourages public buckets.
 
@@ -190,7 +195,7 @@ There are a number of options for where to save images for your own stamp rally.
 ### Setting up stamps
 
 1. Decide which images and prompts (hints or instructions) to correspond to each stamp index. Indexes start at 0 and go to N-1, for a game with N stamps.
-2. Go back to https://remix.ethereum.org with the contract loaded. You should see your deployed contract in the lower right. Or you can add the saved address into the "At Address" field.
+2. Go back to https://remix.ethereum.org with the contract loaded. You should see your deployed contract in the lower left when on the Deploy and Transact view. Or you can add the saved address into the "At Address" field.
 3. Make sure that your web3 enabled browser has the contract owner (the same address you deployed from) as the selected signer.
 4. For each index, call the following two methods in order:
   - generateHash with the password, to create the hashed passphrase
