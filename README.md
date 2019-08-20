@@ -54,6 +54,17 @@ This is a special tutorial for learning Solidity basics. If you are not part of 
 - The first password is "octopus". Try entering it, signing the MetaMask transaction. Wait a few moments for the image to appear!
 - You can also try deploying your own contract instance to Rinkeby. See steps below for setting up your own Stamp Rally.
 
+### Keep learning
+
+Thanks for participating in the build-along. This is just a taste of Solidity code. If you'd like to learn more about Ethereum and Blockchain, I recommend the following resources:
+
+- ⭐ [Crypto Zombies](cryptozombies.io)
+- [Truffle Suite](https://www.trufflesuite.com/)
+- [Bitcoin and Cryptocurrency Technologies online course](https://www.coursera.org/learn/cryptocurrency)
+
+
+[ End of tutorial 🙇‍♀️ ]
+
 # Blockchain Stamp Rally
 
 [Stamp Rallies](https://www.tokyoweekender.com/2009/08/stamp-rallies/) are a scavenger hunt type game popular in Japan, usually centered around railway travel or walking. A card contains a number of blank spaces with destinations. At each destination, is a table with a stamp and ink pad to mark the sheet. Players may redeem a fully stamped sheet for a prize, or an entry into a drawing.
