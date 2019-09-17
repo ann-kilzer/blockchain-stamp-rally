@@ -1,6 +1,7 @@
 let StampRally = artifacts.require("StampRally");
 let numStamps = 12;
 let pic = "https://en.wikipedia.org/wiki/Kangaroo_rat#/media/File:Kangaroo-rat.jpg";
+let prompt = "kangaroo rat"
 
 module.exports = function(deployer) {
 
@@ -15,7 +16,7 @@ module.exports = function(deployer) {
 	return rally.generateHash("password")
     }).then(function(hash) {
 	for (let i = 0; i < numStamps; i++) {
-	    rally.setStamp(i, hash, pic);
+	    rally.setStamp(i, hash, pic, prompt);
 	    
 	}
     })
