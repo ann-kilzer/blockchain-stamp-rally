@@ -55,12 +55,11 @@ contract StampRally {
     owner = msg.sender;
   }
 
-  // Checks if _position is within bounds of the stampKeys array
   modifier validPosition(uint8 _position) {
-    // TODO
+    require(_position < numStamps); // in bounds
+    _;
   }
 
-  // Checks if msg.sender is the contract owner
   modifier onlyOwner() {
     require(msg.sender == owner);
     _;
@@ -75,8 +74,10 @@ contract StampRally {
 		    bytes32 _hashedPassphrase,
 		    string memory _url,
 		    string memory _prompt) public validPosition(_position) onlyOwner {
-    // TODO retrieve the stampKey from stampKeys
-    // then set the hashedPassphrase, url, and prompt
+    StampKey storage s = stampKeys[_position];
+    s.hashedPassphrase = _hashedPassphrase;
+    s.url = _url;
+    s.prompt = _prompt;
   }
 
   /// @notice Computes the keccak256 hash of the passphrase
@@ -102,12 +103,11 @@ contract StampRally {
       cards.push(RallyCard(s));
       playerToRallyCard[msg.sender] = PlayerRallyCard(id, true);
     }
-    // TODO: calculate the hash
+    bytes32 hash = generateHash(_passphrase);
     StampKey memory sk = stampKeys[_position];
-    // check if hash matches the stored passphrase
-    if ( /*TODO*/) {
-      RallyCard storage rc = cards[prc.id]; // Get the player's card
-      rc.stamps[_position] = true; // record that they have the stamp!
+    if (hash == sk.hashedPassphrase) {
+      RallyCard storage rc = cards[prc.id];
+      rc.stamps[_position] = true;
       emit StampCollected(msg.sender, _position, sk.url); 
     } else {
       emit InvalidPassphrase(msg.sender, _position);
