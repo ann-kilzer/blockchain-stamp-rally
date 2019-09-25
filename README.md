@@ -104,28 +104,6 @@ Now you can fire up the app with:
 
 Navigate to http://localhost:8080 in your web3 enabled browser to start the game.
 
-## How to run the smart contract tests
-
-You will need
- - [Truffle 0.5.x](https://www.trufflesuite.com/docs/truffle/overview)
- - [Ganache-cli](https://github.com/trufflesuite/ganache-cli) (Sorry, the GUI version won't cut it)
-
-If this is your first time running the code, initialize the git submodule:
-```
-git submodule init
-git submodule update
-```
-
-In a separate terminal, run `ganache-cli`.
-
-Now you can run the truffle tests like so:
-
-```
-truffle compile
-truffle migrate
-truffle test
-```
-
 ## How to set up a Stamp Rally (For game managers)
 
 I recommend deploying on a test network such as Rinkeby. That way you get a public Blockchain without the high cost of real Ether. Make sure you have some [test Ethereum](https://faucet.rinkeby.io/) in order to deploy the contract.
