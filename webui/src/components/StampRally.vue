@@ -172,10 +172,12 @@ export default {
       ],
     };
   },
-  beforeMount() {
+  async beforeMount() {
     this.setupWeb3();
   },
   async created() {
+    await this.connectMetaMask();
+
     this.address = this.readCookie('address');
     if (this.address === '') {
       this.address = this.defaultAddress;
@@ -340,6 +342,11 @@ export default {
         // set the provider you want from Web3.providers
         console.log('No web3 found. Falling back to Mist 🌫️ or MetaMask 🦊');
         this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+      }
+    },
+    async connectMetaMask() {
+      if (window.ethereum != null) { // true if user is using MetaMask
+        await window.ethereum.enable();
       }
     },
   },
