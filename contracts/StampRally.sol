@@ -38,6 +38,15 @@ contract StampRally {
   // lookup table between player addresses and card id
   mapping (address => PlayerRallyCard) public playerToRallyCard;
 
+  /// @notice Emitted when a player collects a stamp
+  event StampCollected(address indexed player,
+		       uint8 position,
+		       string url);
+
+  /// @notice Emitted when a player makes an invalid guess
+  event InvalidPassphrase(address indexed player,
+			  uint8 position);
+  
   constructor(uint8 _numStamps,
 	      string memory _name) public {
     numStamps = _numStamps;
@@ -99,6 +108,9 @@ contract StampRally {
     if (hash == sk.hashedPassphrase) {
       RallyCard storage rc = cards[prc.id];
       rc.stamps[_position] = true;
+      emit StampCollected(msg.sender, _position, sk.url); 
+    } else {
+      emit InvalidPassphrase(msg.sender, _position);
     }
   }
 
