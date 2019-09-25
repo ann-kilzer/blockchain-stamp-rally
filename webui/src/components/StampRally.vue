@@ -161,6 +161,7 @@ export default {
       numStamps: 0,
       settingsPanel: false,
       address: '',
+      defaultAddress: '0x68C94ee3c4f195e654147BB61374eB8502CBBBB5',
       unlinked: true,
       stampRally: null,
       title: 'Blockchain Stamp Rally',
@@ -176,6 +177,11 @@ export default {
   },
   async created() {
     this.address = this.readCookie('address');
+    if (this.address === '') {
+      this.address = this.defaultAddress;
+      this.unlinked = false;
+    }
+
     // TODO: timeouts are brittle. Figure out how to ensure web3 is properly initialized
     await this.sleep(100);
     if (this.address !== '') {
