@@ -1,3 +1,70 @@
+# 🎶 Blockchain Build-along 🎶
+
+### You're on the build-along branch!
+
+This is a special tutorial for learning Solidity basics. If you are not part of a workshop, you might want to return to the [master](https://github.com/ann-kilzer/blockchain-stamp-rally) branch.
+
+## Prerequisites
+
+- [Chrome](https://www.google.com/chrome/) or [Firefox](https://www.mozilla.org/en-US/firefox/new/) Web Browser
+- Install the web3 plugin [MetaMask](https://metamask.io/)
+  - Create a New Wallet and Seed Phrase
+  - Follow the instructions to set up a wallet
+- Get some test Ethereum
+  - Open up MetaMask
+  - Make sure you have the "Rinkeby" network selected. This is a test network that lets people experiment with using Ethereum for free. It is different than "Mainnet" or real Ethereum, which has a [fluctuating price.](https://ethereumprice.org/)
+  - Copy your account address from MetaMask
+  - Visit this [Rinkeby Test ETH faucet](https://faucet.rinkeby.io/) and follow the directions to get test Ethereum.
+
+## Open the Remix IDE
+- Open [remix](remix.ethereum.org) in a browser tab, and click "Solidity" under environments.
+- Click the "File Explorer" icon (first from top), then click the + to open a new file. Name it StampRally.sol.
+- Copy the code from [StampRally.sol](https://github.com/ann-kilzer/blockchain-stamp-rally/blob/build-along/contracts/StampRally.sol) into a the Remix browser.
+- You're now ready to write code and interact with the smart contract.
+- Fill in the TODOs in the code.
+
+## Checking your work
+
+- Click the "Compile" tab (second from top) to build your code
+- Click the "Deploy and Run Transactions" tab (third from top)
+
+### Deploying a contract
+
+1. Under Environments, click "Injected Web3"
+2. Select which account you wish to deploy from. This will become the contract owner, and it will be the only account able to manage the game (unless you transfer ownership).
+3. Choose the number of stamps available in your rally, as well as the rally name.
+3. Click Deploy. You will see a popup asking for you to sign and submit the transaction. Click to accept.
+4. In the bottom drawer you will see a link to view the transaction on etherscan.io. Click this, and wait until you see TxReceipt Status:Success. This means your contract has been deployed and mined into a block.
+5. Look for the contract address `[Contract 0xabcd... Created]` and click on it to view the contract page.
+6. Copy the contract address to a safe place. You'll need it to set up stamps, and to give to your players
+
+### Running a command
+
+1. Make sure you are on the "Deploy and Run Transactions" tab
+2. Click on a deployed contract
+3. Click on a method and enter parameters
+4. Click call for view (read-only) methods, or transact for write methods (which require signing)
+
+### Interacting with the Web3 frontend
+
+- Visit [this page](https://ann-kilzer.github.io/blockchain-stamp-rally/?)
+- Make sure MetaMask is set to Rinkeby.
+- Click on the gear and enter the following address: [0x46035fA4922F006EE4eCde4BD70090811cB19a23](https://rinkeby.etherscan.io/address/0x46035fa4922f006ee4ecde4bd70090811cb19a23).
+- Click LINK
+- The first password is "octopus". Try entering it, signing the MetaMask transaction. Wait a few moments for the image to appear!
+- You can also try deploying your own contract instance to Rinkeby. See steps below for setting up your own Stamp Rally.
+
+### Keep learning
+
+Thanks for participating in the build-along. This is just a taste of Solidity code. If you'd like to learn more about Ethereum and Blockchain, I recommend the following resources:
+
+- ⭐ [Crypto Zombies](cryptozombies.io)
+- [Truffle Suite](https://www.trufflesuite.com/)
+- [Bitcoin and Cryptocurrency Technologies online course](https://www.coursera.org/learn/cryptocurrency)
+
+
+[ End of tutorial 🙇‍♀️ ]
+
 # Blockchain Stamp Rally
 
 [Stamp Rallies](https://www.tokyoweekender.com/2009/08/stamp-rallies/) are a scavenger hunt type game popular in Japan, usually centered around railway travel or walking. A card contains a number of blank spaces with destinations. At each destination, is a table with a stamp and ink pad to mark the sheet. Players may redeem a fully stamped sheet for a prize, or an entry into a drawing.
@@ -6,16 +73,12 @@ I created this game to make a virtual stamp rally for my coworkers. Rather than 
 
 Passphrases could be code words, solutions to puzzles, or revealed via locations in virtual worlds. Using Blockchain as the data store keeps a decentralized source of truth.
 
-## Build-along
-
-**Select the ["Build-along"](https://github.com/ann-kilzer/blockchain-stamp-rally/tree/build-along) branch if you are following along in a tutorial**
-
 ## How to play
 
 - web3 plugin [Metamask](https://metamask.io/)
 - An address of the deployed instance of the stamp rally contract
-  - TODO: Sample address
-  - See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers))
+  - A Sample Contract is at [0x46035fA4922F006EE4eCde4BD70090811cB19a23](https://rinkeby.etherscan.io/address/0x46035fa4922f006ee4ecde4bd70090811cb19a23) on Rinkeby. The first password is "octopus".
+  - See below for [how game managers can set up a stamp rally](#how-to-set-up-a-stamp-rally-for-game-managers)
 - Some test Ether
   - [Rinkeby Test Eth](https://faucet.rinkeby.io/)
 
@@ -95,13 +158,18 @@ There are a number of options for where to save images for your own stamp rally.
  - Pros: Simple and free. Same origin, no [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues.
  - Cons: No element of surprise for players to discover stamps
 
+2. Another GitHub repo
+ - Pros: Free, easy
+ - Cons: Easy for players to discover all the stamps
 
-2. Your own website:
+ Example: https://github.com/ann-kilzer/stamp-city
+
+3. Your own website:
  - Pros: Ability to hide stamps
  - Cons: CORS configuration is a challenge. Cost of hosting
 
 
-3. Amazon S3
+4. Amazon S3
  - Pros: Ability to hide stamps
  - Cons: CORS configuration is a challenge. Cost of hosting. I recommend not leaking the image URLs, as Amazon discourages public buckets.
 
@@ -149,7 +217,7 @@ There are a number of options for where to save images for your own stamp rally.
 ### Setting up stamps
 
 1. Decide which images and prompts (hints or instructions) to correspond to each stamp index. Indexes start at 0 and go to N-1, for a game with N stamps.
-2. Go back to https://remix.ethereum.org with the contract loaded. You should see your deployed contract in the lower right. Or you can add the saved address into the "At Address" field.
+2. Go back to https://remix.ethereum.org with the contract loaded. You should see your deployed contract in the lower left when on the Deploy and Transact view. Or you can add the saved address into the "At Address" field.
 3. Make sure that your web3 enabled browser has the contract owner (the same address you deployed from) as the selected signer.
 4. For each index, call the following two methods in order:
   - generateHash with the password, to create the hashed passphrase
